@@ -13,6 +13,7 @@ import Resultados from "./pages/Resultados.jsx";
 import Historial from "./pages/Historial.jsx";
 import Ranking from "./pages/Ranking.jsx";
 import AdminPreguntas from "./pages/AdminPreguntas.jsx";
+import AdminUsuarios from "./pages/AdminUsuarios.jsx";
 import NoEncontrada from "./pages/NoEncontrada.jsx";
 import Recortes from "./components/Recortes.jsx";
 
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="/historial" element={<RutaPrivada><Historial /></RutaPrivada>} />
           <Route path="/ranking" element={<RutaPrivada><Ranking /></RutaPrivada>} />
           <Route path="/admin/preguntas" element={<RutaPrivada soloAdmin><AdminPreguntas /></RutaPrivada>} />
+          <Route path="/admin/usuarios" element={<RutaPrivada soloAdmin><AdminUsuarios /></RutaPrivada>} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>

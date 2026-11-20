@@ -11,7 +11,8 @@ import { colorDeCategoria } from "../components/Categoria.jsx";
 const CANTIDADES = [5, 10];
 
 export default function Jugar() {
-  const { mostrarMensaje } = useApp();
+  const { usuario, mostrarMensaje } = useApp();
+  const esAdmin = usuario.rol === "admin";
   const navigate = useNavigate();
   const categorias = useDatos("/preguntas/categorias");
 
@@ -37,7 +38,8 @@ export default function Jugar() {
 
   return (
     <section className="pantalla jugar">
-      <h2>Elegí tu función</h2>
+      <h2>{esAdmin ? "Probar partida" : "Elegí tu función"}</h2>
+      {esAdmin && <p className="aviso-prueba">Tus partidas de prueba no aparecen en el ranking.</p>}
       {categorias.cargando && <Cargando texto="Cargando categorías..." />}
       {categorias.error && (
         <ErrorCarga texto="No se pudieron cargar las categorías." onReintentar={categorias.recargar} />
@@ -78,7 +80,7 @@ export default function Jugar() {
           </div>
 
           <button type="submit" className="boton-jugar" disabled={lista.length === 0 || creando}>
-            {creando ? "Preparando..." : "¡A jugar!"}
+            {creando ? "Preparando..." : esAdmin ? "Probar partida" : "¡A jugar!"}
           </button>
         </form>
       </div>

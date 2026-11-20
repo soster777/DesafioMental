@@ -7,8 +7,14 @@ import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
 import Houdini from "../components/Houdini.jsx";
 import { colorDeCategoria } from "../components/Categoria.jsx";
+import MenuAdmin from "./MenuAdmin.jsx";
 
 export default function Menu() {
+  const { usuario } = useApp();
+  return usuario.rol === "admin" ? <MenuAdmin /> : <MenuJugador />;
+}
+
+function MenuJugador() {
   const { usuario } = useApp();
   const stats = useDatos("/estadisticas");
   const categorias = useDatos("/preguntas/categorias");

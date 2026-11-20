@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useApp } from "../context/AppContext.jsx";
-import { IconoCarpa, IconoPergamino, IconoTrofeo, IconoPregunta } from "./Iconos.jsx";
+import { IconoCarpa, IconoPergamino, IconoTrofeo, IconoPregunta, IconoUsuarios } from "./Iconos.jsx";
 
 export default function Barra() {
   const { usuario, logout, mostrarMensaje } = useApp();
@@ -19,6 +19,7 @@ export default function Barra() {
   ];
   if (usuario && usuario.rol === "admin") {
     links.push({ a: "/admin/preguntas", texto: "Preguntas", Icono: IconoPregunta });
+    links.push({ a: "/admin/usuarios", texto: "Usuarios", Icono: IconoUsuarios });
   }
 
   return (
