@@ -1,0 +1,723 @@
+/* Estética: cartel de circo / show de escapismo de principios del 1900.
+   Papel envejecido, rojo de imprenta, dorado, tinta negra y bordes dobles. */
+:root {
+  --fondo: #e9dcbf;          /* papel viejo */
+  --tarjeta: #f6ecd4;        /* papel más claro, el del cartel */
+  --texto: #1f1712;          /* tinta */
+  --suave: #6e5a44;          /* tinta gastada */
+  --principal: #9e1b1b;      /* rojo de cartel */
+  --principal-oscuro: #6d1010;
+  --dorado: #c8a03a;
+  --dorado-oscuro: #8a6a1c;
+  --noche: #1c2333;          /* azul noche de los afiches */
+  --correcto: #3d6b35;       /* verde apagado, de imprenta */
+  --incorrecto: #b3261e;
+  --borde: #b9a27a;
+  --radio: 4px;              /* esquinas casi rectas, como un cartel impreso */
+
+  --azul: #3d5a80;           /* azul de los rayos del afiche */
+  --fuente-titulo: "Bowlby One SC", Impact, "Arial Black", sans-serif;
+  --fuente-sub: "Playfair Display SC", Georgia, serif;
+  --fuente-texto: "Old Standard TT", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  color: var(--texto);
+  line-height: 1.55;
+  /* rayos de sol rojo, crema y azul como el afiche de referencia.
+     repeating-conic-gradient repite gajos alrededor de un centro; arriba van manchas de papel viejo */
+  /* capas de arriba hacia abajo: viñeta en los bordes, velo oscuro parejo que baja la saturación, y los rayos */
+  background:
+    radial-gradient(circle at 50% 45%, transparent 35%, rgba(20, 12, 6, 0.55) 100%),
+    linear-gradient(rgba(28, 20, 14, 0.42), rgba(28, 20, 14, 0.42)),
+    repeating-conic-gradient(from 0deg at 50% 40%,
+      #9a4238 0deg 7.5deg, #d6c6a2 7.5deg 15deg, #44607e 15deg 22.5deg, #d6c6a2 22.5deg 30deg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Barra: carpa de circo con rayas rojas y crema y un ribete dorado abajo */
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  color: #fff;
+  background:
+    linear-gradient(rgba(28, 35, 51, 0.82), rgba(28, 35, 51, 0.82)),
+    repeating-linear-gradient(90deg, var(--principal) 0 28px, #f6ecd4 28px 56px);
+  border-bottom: 4px double var(--dorado);
+  box-shadow: 0 3px 0 var(--principal), 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+.barra h1 {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #fff;
+  /* contorno negro + sombra dura, como las letras del afiche */
+  -webkit-text-stroke: 2px #111;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--principal);
+}
+
+main {
+  max-width: 1040px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+/* Cada pantalla es un cartel: borde doble rojo y un marco interior dorado */
+.pantalla {
+  position: relative;
+  background: var(--tarjeta);
+  border: 5px double var(--principal);
+  border-radius: var(--radio);
+  padding: 32px 28px;
+  box-shadow:
+    inset 0 0 0 6px var(--tarjeta),
+    inset 0 0 0 7px var(--dorado),
+    inset 0 0 60px rgba(120, 80, 30, 0.15),
+    0 8px 22px rgba(40, 20, 5, 0.25);
+}
+
+.oculto { display: none !important; }
+
+h2 {
+  margin-top: 0;
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 1.1;
+  color: #fff;
+  /* paint-order hace que el contorno se pinte detrás del relleno, así no se come la letra */
+  -webkit-text-stroke: 4px #111;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--principal);
+  letter-spacing: 1px;
+}
+/* una estrellita antes del título, típica de los afiches */
+h2::before { content: "\2605"; color: var(--principal); -webkit-text-stroke: 0; text-shadow: none; font-size: 1.4rem; vertical-align: middle; margin-right: 12px; }
+
+h3 {
+  margin: 28px 0 10px;
+  font-family: var(--fuente-sub);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--noche);
+  /* línea decorativa debajo, como separador de cartel */
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--borde);
+}
+
+/* Formularios */
+form { display: flex; flex-direction: column; gap: 14px; }
+form.fila { flex-direction: row; flex-wrap: wrap; align-items: flex-end; }
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--fuente-sub);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--suave);
+}
+input, select, textarea {
+  padding: 10px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: #fbf5e6;
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--dorado); border-color: var(--principal); }
+
+/* Botones: como entrada de función, rojo con borde dorado y letras espaciadas */
+button {
+  padding: 10px 20px;
+  border: 2px solid var(--dorado);
+  border-radius: var(--radio);
+  background: var(--principal);
+  color: #fdf3d8;
+  font-family: var(--fuente-sub);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--noche);
+  transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+}
+button:hover:not(:disabled) { background: var(--principal-oscuro); }
+/* al apretar se "hunde" la sombra */
+button:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--noche); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button.secundario { background: transparent; color: var(--principal); border: 2px solid var(--principal); }
+button.secundario:hover:not(:disabled) { background: rgba(158, 27, 27, 0.08); }
+button:focus-visible { outline: 2px solid var(--dorado); outline-offset: 2px; }
+
+a { color: var(--principal); }
+
+.errores { color: var(--incorrecto); margin: 0; padding-left: 20px; }
+
+/* Mensajes flotantes: un boleto de circo */
+.mensaje {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 22px;
+  border: 2px dashed var(--dorado);
+  border-radius: var(--radio);
+  color: #fdf3d8;
+  background: var(--noche);
+  font-family: var(--fuente-sub);
+  letter-spacing: 1px;
+  z-index: 10;
+  max-width: 90%;
+  box-shadow: 0 0 0 4px var(--noche), 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+.mensaje.exito { background: var(--correcto); box-shadow: 0 0 0 4px var(--correcto), 0 6px 16px rgba(0, 0, 0, 0.35); }
+.mensaje.error { background: var(--incorrecto); box-shadow: 0 0 0 4px var(--incorrecto), 0 6px 16px rgba(0, 0, 0, 0.35); }
+
+/* Estadísticas: plaquitas de marquesina */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+.stats div {
+  background: var(--noche);
+  color: #fdf3d8;
+  border: 2px solid var(--dorado);
+  border-radius: var(--radio);
+  padding: 12px;
+}
+.stats dt { font-family: var(--fuente-sub); font-size: 0.78rem; letter-spacing: 1px; color: var(--dorado); }
+.stats dd { margin: 0; font-family: var(--fuente-titulo); font-size: 1.6rem; }
+
+.acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+/* Carga asincrónica */
+.carga, .carga-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+  background: rgba(255, 250, 235, 0.6);
+  font-style: italic;
+}
+.carga-error { color: var(--incorrecto); }
+/* spinner con rayas de carpa */
+.spinner {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--dorado);
+  background: conic-gradient(var(--principal) 0 25%, #f6ecd4 0 50%, var(--principal) 0 75%, #f6ecd4 0);
+  animation: girar 1s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* Partida */
+.info-partida {
+  display: flex;
+  justify-content: space-between;
+  color: var(--suave);
+  font-family: var(--fuente-sub);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+.tiempo.urgente { color: var(--incorrecto); }
+.opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.opciones button {
+  background: #fbf5e6;
+  color: var(--texto);
+  border: 2px solid var(--borde);
+  text-align: left;
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  text-transform: none;
+  box-shadow: 3px 3px 0 var(--borde);
+}
+.opciones button:hover:not(:disabled) { background: #f3e4bf; border-color: var(--dorado); }
+.opciones button.correcta { background: var(--correcto); border-color: var(--correcto); color: #fff; opacity: 1; }
+.opciones button.incorrecta { background: var(--incorrecto); border-color: var(--incorrecto); color: #fff; opacity: 1; }
+.feedback { min-height: 1.5em; font-weight: 700; font-style: italic; }
+
+.destacado {
+  font-family: var(--fuente-titulo);
+  font-size: 1.6rem;
+  color: var(--principal);
+}
+
+/* Historial y ranking */
+.revision {
+  background: rgba(255, 250, 235, 0.7);
+  border-left: 4px solid var(--principal);
+  border-radius: var(--radio);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px dotted var(--borde); }
+th {
+  background: var(--noche);
+  color: var(--dorado);
+  font-family: var(--fuente-sub);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
+.vacio { color: var(--suave); font-style: italic; }
+
+/* Celulares */
+@media (max-width: 560px) {
+  .pantalla { padding: 22px 16px; }
+  h2 { font-size: 2.1rem; -webkit-text-stroke-width: 3px; }
+  h3 { font-size: 1.25rem; }
+  h2::before { margin-right: 6px; }
+  .opciones { grid-template-columns: 1fr; }
+  form.fila { flex-direction: column; align-items: stretch; }
+  table { font-size: 0.85rem; }
+  th, td { padding: 6px 4px; }
+}
+
+/* Agregados del parcial 2 */
+.barra { flex-wrap: wrap; gap: 8px; }
+.barra h1 a { color: inherit; text-decoration: none; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.nav a {
+  color: #fdf3d8;
+  text-decoration: none;
+  font-family: var(--fuente-sub);
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+.nav a:hover, .nav a.active { opacity: 1; color: var(--dorado); }
+.nav span { font-style: italic; color: #fdf3d8; }
+.nav .salir { background: transparent; border: 2px solid var(--dorado); color: var(--dorado); padding: 4px 12px; font-size: 0.8rem; box-shadow: none; }
+.nav .salir:hover { background: var(--principal); color: #fdf3d8; }
+
+.pantalla + .pantalla { margin-top: 20px; }
+.tabla-scroll { overflow-x: auto; }
+.celda-acciones { display: flex; gap: 6px; flex-wrap: wrap; }
+.celda-acciones button { padding: 4px 10px; font-size: 0.75rem; box-shadow: 2px 2px 0 var(--noche); }
+.opciones-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+@media (max-width: 560px) {
+  .opciones-form { grid-template-columns: 1fr; }
+}
+
+.categoria {
+  display: inline-block;
+  padding: 2px 12px;
+  border: 1px solid currentColor;
+  border-radius: var(--radio);
+  font-family: var(--fuente-sub);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.stats dd .categoria { font-size: 0.9rem; }
+.categoria + h2 { margin-top: 10px; }
+
+/* ---------- Recortes decorativos en los márgenes ---------- */
+.recortes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* que no tapen clics */
+  z-index: 0;
+}
+.recorte {
+  position: absolute;
+  transform: translateY(-50%) rotate(var(--giro));
+  /* cuatro sombras blancas sin desenfoque arman el borde de tijera, la última es la sombra real */
+  filter:
+    drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
+    drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
+    drop-shadow(4px 6px 4px rgba(20, 10, 0, 0.45));
+}
+.recorte svg { display: block; width: 100%; height: auto; }
+/* la barra y el contenido van por encima de los recortes */
+.barra, main { position: relative; z-index: 1; }
+/* si la pantalla es angosta no hay margen libre, así que no los muestro */
+@media (max-width: 1400px) {
+  .recortes { display: none; }
+}
+
+/* ---------- Houdini en el inicio ---------- */
+/* solo el título y el globo le dejan lugar a la foto; lo de abajo ya usa todo el ancho */
+.con-houdini > h2, .houdini { margin-right: 220px; }
+.houdini {
+  display: flex;
+  align-items: center;
+  min-height: 190px; /* alto suficiente para que lo que sigue arranque debajo de la foto */
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.houdini-marco {
+  /* colgado de la esquina superior derecha del cartel, sobresaliendo del borde */
+  position: absolute;
+  top: -28px;
+  right: -36px;
+  z-index: 2;
+  width: 200px;
+  margin: 0;
+  padding: 10px;
+  /* marco dorado con relieve hecho con gradientes */
+  background: linear-gradient(135deg, #f5d77a, #b8862a 40%, #f2cf6a 60%, #8a6a1c);
+  border-radius: 3px;
+  transform: rotate(4deg);
+  box-shadow: 0 0 0 5px #fff, 8px 10px 14px rgba(20, 10, 0, 0.45);
+}
+.houdini-marco img,
+.houdini-reemplazo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: top;
+  /* tono sepia de foto vieja */
+  filter: sepia(0.55) contrast(1.05);
+  border: 2px solid #5e4510;
+  background: #ecdcb8;
+}
+.houdini-reemplazo { display: grid; place-items: center; padding: 20px; }
+.houdini-marco figcaption {
+  margin-top: 6px;
+  text-align: center;
+  font-family: var(--fuente-sub);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #2a1a05;
+}
+/* globito de historieta que sale hacia la foto */
+.globo {
+  position: relative;
+  margin: 0;
+  padding: 18px 22px;
+  background: #fff;
+  border: 3px solid #111;
+  border-radius: 24px;
+  box-shadow: 5px 5px 0 var(--principal);
+}
+.globo::before {
+  /* la colita del globo apuntando a Houdini: un triángulo hecho con bordes */
+  content: "";
+  position: absolute;
+  right: -22px;
+  top: 30%;
+  border: 12px solid transparent;
+  border-left: 22px solid #111;
+  border-right: 0;
+}
+.globo p {
+  margin: 0 0 8px;
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--texto);
+}
+.globo cite { font-style: italic; color: var(--principal); font-weight: 700; }
+/* cada frase nueva aparece suave */
+.globo-texto { animation: aparecer 0.5s ease-out; }
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+/* en pantallas angostas no hay lugar en la esquina: la foto va arriba del globo */
+@media (max-width: 860px) {
+  .con-houdini > h2, .houdini { margin-right: 0; }
+  .houdini { display: block; min-height: 0; }
+  .houdini-marco { position: static; width: 170px; margin: 0 auto 20px; transform: rotate(-3deg); }
+  .globo::before { display: none; }
+}
+@media (max-width: 560px) {
+  .globo p { font-size: 1.2rem; }
+}
+
+/* ---------- Boleto del login ---------- */
+.boleto {
+  position: absolute;
+  top: -26px;
+  right: -30px;
+  z-index: 2;
+  width: 250px;
+  padding: 14px 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  color: #fdf3d8;
+  background: var(--principal);
+  /* los cuatro mordiscos de las esquinas y los dos del medio: gradientes radiales transparentes usados como máscara */
+  -webkit-mask:
+    radial-gradient(circle 12px at 0 0, transparent 98%, #000) top left / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 100% 0, transparent 98%, #000) top right / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 0 100%, transparent 98%, #000) bottom left / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 100% 100%, transparent 98%, #000) bottom right / 51% 51% no-repeat;
+  mask:
+    radial-gradient(circle 12px at 0 0, transparent 98%, #000) top left / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 100% 0, transparent 98%, #000) top right / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 0 100%, transparent 98%, #000) bottom left / 51% 51% no-repeat,
+    radial-gradient(circle 12px at 100% 100%, transparent 98%, #000) bottom right / 51% 51% no-repeat;
+  /* la máscara recorta las sombras, así que la sombra va con filter, que se aplica después */
+  filter: drop-shadow(5px 6px 6px rgba(20, 10, 0, 0.45));
+  transform: rotate(6deg);
+  /* línea punteada interior, como el troquel de la entrada */
+  outline: 2px dashed rgba(232, 195, 90, 0.8);
+  outline-offset: -8px;
+}
+.boleto-arriba, .boleto-numero {
+  font-family: var(--fuente-sub);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+/* el número es lo que importa: más grande y con las cifras del mismo ancho */
+.boleto-numero { margin-top: 4px; font-size: 0.95rem; letter-spacing: 4px; font-variant-numeric: tabular-nums; }
+.boleto strong { font-family: var(--fuente-sub); font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; }
+.boleto-titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 1.35rem;
+  line-height: 1.1;
+  color: #fff;
+  -webkit-text-stroke: 1px #111;
+  paint-order: stroke fill;
+  text-shadow: 2px 2px 0 var(--noche);
+}
+/* variante del menú: colgada abajo a la izquierda, lejos de Houdini */
+.boleto.abajo { top: auto; right: auto; bottom: -30px; left: -34px; transform: rotate(-6deg); }
+/* le deja lugar abajo para que el boleto no tape los porcentajes */
+.con-boleto-abajo { padding-bottom: 130px; }
+@media (max-width: 860px) {
+  .boleto, .boleto.abajo { position: static; margin: 0 auto 16px; transform: rotate(-2deg); }
+  .con-boleto-abajo { padding-bottom: 22px; }
+}
+
+/* ---------- Ranking con podio ---------- */
+.ranking { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.puesto {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #fbf5e6;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+}
+.puesto .numero { font-family: var(--fuente-titulo); font-size: 1.4rem; color: var(--suave); min-width: 2.5ch; }
+.puesto .jugador { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.puesto .jugador strong { font-size: 1.2rem; overflow-wrap: anywhere; }
+.puesto .detalle { color: var(--suave); font-size: 0.9rem; }
+.puesto .puntos { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--principal); white-space: nowrap; }
+.puesto .puntos small { font-family: var(--fuente-sub); font-size: 0.8rem; margin-left: 4px; color: var(--suave); }
+
+/* el recorte (corona o medalla) va colgado de la esquina superior izquierda */
+.insignia {
+  position: absolute;
+  top: -22px;
+  left: -18px;
+  width: 54px;
+  transform: rotate(-18deg);
+  filter:
+    drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
+    drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+    drop-shadow(3px 4px 3px rgba(20, 10, 0, 0.4));
+}
+.insignia svg { display: block; width: 100%; height: auto; }
+/* los tres primeros se corren un poco a la derecha para dejar lugar al recorte */
+.puesto.oro, .puesto.plata, .puesto.bronce { padding-left: 46px; }
+.puesto.oro {
+  border: 4px solid #d4a72c;
+  background: linear-gradient(135deg, #fff6d6, #f7e3a1);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8a6a1c, 0 6px 14px rgba(140, 100, 20, 0.35);
+}
+.puesto.oro .insignia { width: 66px; top: -30px; left: -22px; }
+.puesto.oro .numero { color: #8a6a1c; }
+.puesto.plata {
+  border: 4px solid #a9b0b8;
+  background: linear-gradient(135deg, #fbfbfc, #e3e6ea);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #7b838c;
+}
+.puesto.plata .numero { color: #7b838c; }
+.puesto.bronce {
+  border: 4px solid #c27c3e;
+  background: linear-gradient(135deg, #fdf0e3, #efcfae);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8a4f1d;
+}
+.puesto.bronce .numero { color: #8a4f1d; }
+@media (max-width: 560px) {
+  .puesto { flex-wrap: wrap; gap: 8px 12px; }
+  .puesto .puntos { font-size: 1.4rem; }
+}
+
+/* ---------- Reloj de bolsillo ---------- */
+.info-partida { align-items: center; }
+.reloj {
+  width: 120px;
+  flex-shrink: 0;
+  filter: drop-shadow(3px 4px 3px rgba(20, 10, 0, 0.35));
+}
+.reloj svg { display: block; width: 100%; height: auto; overflow: visible; }
+.reloj-gajo { fill: var(--dorado); opacity: 0.35; transition: fill 0.3s; }
+.reloj-aguja { stroke: #3a2a10; stroke-width: 3; stroke-linecap: round; transition: transform 0.9s linear; }
+.reloj-numero { font-family: var(--fuente-titulo); font-size: 20px; fill: #3a2a10; }
+.reloj.aviso .reloj-gajo { fill: #e8b400; opacity: 0.55; }
+.reloj.urgente .reloj-gajo { fill: var(--incorrecto); opacity: 0.6; }
+.reloj.urgente .reloj-numero { fill: var(--incorrecto); }
+/* en los últimos segundos el reloj tiembla */
+.reloj.urgente { animation: temblar 0.5s ease-in-out infinite; }
+@keyframes temblar {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+
+/* bordes de la pantalla: amarillo cuando queda poco, rojo latiendo cuando se acaba */
+.pantalla.partida { transition: border-color 0.3s, box-shadow 0.3s; }
+.pantalla.tiempo-aviso {
+  border-color: #e8b400;
+  box-shadow:
+    inset 0 0 0 6px var(--tarjeta),
+    inset 0 0 0 7px #e8b400,
+    0 0 0 4px rgba(232, 180, 0, 0.45),
+    0 0 26px rgba(232, 180, 0, 0.6);
+}
+.pantalla.tiempo-urgente {
+  border-color: var(--incorrecto);
+  animation: latido 0.8s ease-in-out infinite;
+}
+@keyframes latido {
+  0%, 100% {
+    box-shadow: inset 0 0 0 6px var(--tarjeta), inset 0 0 0 7px var(--incorrecto),
+      0 0 0 4px rgba(179, 38, 30, 0.45), 0 0 18px rgba(179, 38, 30, 0.5);
+  }
+  50% {
+    box-shadow: inset 0 0 0 6px var(--tarjeta), inset 0 0 0 7px var(--incorrecto),
+      0 0 0 8px rgba(179, 38, 30, 0.6), 0 0 40px rgba(179, 38, 30, 0.85);
+  }
+}
+
+/* ---------- Armar partida (menú) ---------- */
+.armar-partida { gap: 10px; }
+.rotulo {
+  margin: 6px 0 0;
+  font-family: var(--fuente-sub);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--suave);
+}
+/* grilla que reparte los botones en todo el ancho; auto-fit pone tantas columnas como entren */
+.selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.selector button {
+  padding: 18px 12px;
+  background: #fbf5e6;
+  color: var(--texto);
+  border: 2px solid var(--borde);
+  box-shadow: 3px 3px 0 var(--borde);
+  font-size: 1.05rem;
+}
+.selector button:hover:not(:disabled) { background: #f3e4bf; border-color: var(--dorado); }
+/* el elegido queda como entrada roja de función */
+.selector button[aria-pressed="true"] {
+  background: var(--principal);
+  color: #fdf3d8;
+  border-color: var(--dorado);
+  box-shadow: 3px 3px 0 var(--noche);
+}
+.cantidades { grid-template-columns: 1fr 1fr; }
+.boton-jugar {
+  margin-top: 12px;
+  padding: 18px;
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  box-shadow: 5px 5px 0 var(--noche);
+}
+
+/* porcentajes por categoría: nombre | barra | número */
+.porcentajes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.porcentajes li { display: grid; grid-template-columns: 140px 1fr 100px; align-items: center; gap: 14px; }
+.porcentajes .nombre { font-family: var(--fuente-sub); font-weight: 700; letter-spacing: 1px; }
+.barra-porcentaje {
+  height: 18px;
+  background: #fbf5e6;
+  border: 2px solid var(--borde);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.barra-porcentaje span {
+  display: block;
+  height: 100%;
+  /* rayas de carpa adentro de la barra */
+  background: repeating-linear-gradient(45deg, var(--principal) 0 10px, #c0392b 10px 20px);
+  transition: width 0.6s ease-out;
+}
+.porcentajes .valor { font-family: var(--fuente-titulo); color: var(--principal); text-align: right; white-space: nowrap; }
+.porcentajes .valor.sin-jugar { font-family: var(--fuente-texto); font-style: italic; color: var(--suave); }
+@media (max-width: 560px) {
+  .porcentajes li { grid-template-columns: 1fr auto; }
+  .barra-porcentaje { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ---------- Pestañas del ranking ---------- */
+.pestanas { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
+.pestanas button {
+  background: transparent;
+  color: var(--principal);
+  border: 2px solid var(--principal);
+  box-shadow: none;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+.pestanas button[aria-pressed="true"] { background: var(--principal); color: #fdf3d8; box-shadow: 3px 3px 0 var(--noche); }
+/* si arriba hay un rótulo, la pestaña va pegada a él */
+.rotulo + .pestanas { margin-top: 6px; }
+
+/* estado de la partida como sello de tinta */
+.sello {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 2px solid currentColor;
+  border-radius: var(--radio);
+  font-family: var(--fuente-sub);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+.sello.completada { color: var(--correcto); }
+.sello.abandonada { color: var(--incorrecto); }
+
+/* respetamos a quien pidió menos movimiento en el sistema */
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 3s; }
+  /* sin temblor ni latido: el aviso queda solo con el color */
+  .reloj.urgente, .pantalla.tiempo-urgente { animation: none; }
+  .reloj-aguja { transition: none; }
+  .globo-texto { animation: none; }
+  button { transition: none; }
+}
