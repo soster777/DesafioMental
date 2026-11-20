@@ -736,6 +736,46 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .recorte-404.candado { width: 56px; }
 }
 
+/* ---------- Barra de abajo (celular) ---------- */
+.nav-inferior { display: none; }
+@media (max-width: 700px) {
+  /* arriba quedan solo el título, el nombre y cerrar sesión */
+  .nav .link-arriba { display: none; }
+  .barra h1 { font-size: 1.5rem; }
+  .nav-inferior {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: flex;
+    background: var(--noche);
+    border-top: 4px double var(--dorado);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.35);
+    /* deja libre la rayita de inicio de los iPhone */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-inferior a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 4px 10px;
+    color: #cdbf9e;
+    text-decoration: none;
+    font-family: var(--fuente-sub);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .nav-inferior svg { width: 26px; height: 26px; }
+  /* el activo se pinta de dorado con una marca roja arriba, como una entrada elegida */
+  .nav-inferior a.active { color: var(--dorado); box-shadow: inset 0 3px 0 var(--principal); background: rgba(255, 255, 255, 0.04); }
+  /* lugar abajo para que la barra fija no tape el final del contenido */
+  main { padding-bottom: 84px; }
+}
+
 /* ---------- Pestañas del ranking ---------- */
 .pestanas { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
 .pestanas button {
