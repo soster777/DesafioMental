@@ -10,8 +10,8 @@ import {
     hashearClave,
     claveCorrecta,
     datosPublicos,
-    siguienteNumero,
 } from "../logica/usuarios.js";
+import { siguienteId } from "../logica/preguntas.js";
 
 const router = Router();
 
@@ -35,7 +35,8 @@ router.post("/registro", (req, res) => {
     }
 
     const nuevo = {
-        numero: siguienteNumero(usuarios),
+        // misma cuenta que para las preguntas: el id más alto + 1, así nunca se repite
+        id: siguienteId(usuarios),
         usuario: datos.usuario,
         email: datos.email,
         clave: hashearClave(datos.clave),

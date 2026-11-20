@@ -87,15 +87,17 @@ export function claveCorrecta(clave, guardada) {
 
 // Usuario -> Object
 export function datosPublicos(usuario) {
-    return { usuario: usuario.usuario, email: usuario.email, rol: usuario.rol, numero: usuario.numero };
+    return { id: usuario.id, usuario: usuario.usuario, email: usuario.email, rol: usuario.rol };
 }
 
-// [Usuario] -> Number: el número de socio que le toca al próximo que se registre
-export function siguienteNumero(usuarios) {
-    return usuarios.reduce((mayor, u) => Math.max(mayor, u.numero ?? 0), 0) + 1;
-}
-
-// [Usuario] -> [Usuario]: a los usuarios viejos que no tienen número les pone uno según el orden de registro
-export function completarNumeros(usuarios) {
-    return usuarios.map((u, indice) => (u.numero ? u : { ...u, numero: indice + 1 }));
+// [Usuario] -> [Usuario]: a los usuarios guardados antes de tener id les pone uno.
+// Si tenían el viejo "numero" lo usan como id; si no, el orden de registro.
+export function completarIds(usuarios) {
+    return usuarios.map((u, indice) => {
+        if (u.id) {
+            return u;
+        }
+        const { numero, ...resto } = u;
+        return { id: numero || indice + 1, ...resto };
+    });
 }

@@ -69,7 +69,7 @@ export default function Menu() {
 
   return (
     <section className="pantalla con-houdini con-boleto-abajo">
-      <Boleto numero={usuario.numero} abajo />
+      <Boleto numero={usuario.id} abajo />
       <h2>Hola, {usuario.usuario}</h2>
       <Houdini />
 

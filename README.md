@@ -49,7 +49,7 @@ Después se abre http://localhost:5173 en el navegador. Vite reenvía todo lo qu
 
 ## Roles
 
-Cada usuario tiene un número de socio (1, 2, 3... por orden de registro) que se ve en la entrada del menú.
+Cada usuario tiene un id (1, 2, 3... por orden de registro) que se ve como número de socio en la entrada del menú.
 
 - **usuario**: se crea desde el registro público. Juega y ve sus estadísticas, el historial y el ranking.
 - **admin**: además gestiona el banco de preguntas desde "Preguntas" (alta, edición y baja).
