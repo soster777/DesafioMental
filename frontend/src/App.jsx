@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import Registro from "./pages/Registro.jsx";
 import Menu from "./pages/Menu.jsx";
 import Partida from "./pages/Partida.jsx";
+import Jugar from "./pages/Jugar.jsx";
 import Resultados from "./pages/Resultados.jsx";
 import Historial from "./pages/Historial.jsx";
 import Ranking from "./pages/Ranking.jsx";
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/login" element={usuario ? <Navigate to="/menu" replace /> : <Login />} />
           <Route path="/registro" element={usuario ? <Navigate to="/menu" replace /> : <Registro />} />
           <Route path="/menu" element={<RutaPrivada><Menu /></RutaPrivada>} />
+          <Route path="/jugar" element={<RutaPrivada><Jugar /></RutaPrivada>} />
           <Route path="/partida/:id" element={<RutaPrivada><Partida /></RutaPrivada>} />
           <Route path="/resultados/:id" element={<RutaPrivada><Resultados /></RutaPrivada>} />
           <Route path="/historial" element={<RutaPrivada><Historial /></RutaPrivada>} />

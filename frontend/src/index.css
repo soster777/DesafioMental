@@ -707,6 +707,24 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .ruleta-rueda { transition: none; }
 }
 
+/* ---------- Pantalla Jugar ---------- */
+.boton-link.boton-jugar { display: block; margin: 4px 0 12px; text-align: center; }
+.jugar-columnas { display: grid; grid-template-columns: 340px 1fr; gap: 36px; align-items: center; margin-top: 12px; }
+.jugar .ruleta { flex-direction: column; gap: 20px; margin: 0; }
+.jugar .ruleta-rueda-marco { width: 320px; height: 320px; }
+.jugar .ruleta-rueda { border-width: 9px; }
+.jugar .ruleta-texto { font-size: 0.85rem; padding-top: 18px; }
+.jugar .ruleta-centro { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+.jugar .ruleta-flecha { top: -14px; margin-left: -15px; border-width: 15px; border-top-width: 28px; border-bottom: 0; }
+.jugar .ruleta button { padding: 12px 26px; font-size: 1rem; }
+@media (max-width: 860px) {
+  .jugar-columnas { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 560px) {
+  .jugar .ruleta-rueda-marco { width: 250px; height: 250px; }
+  .jugar .ruleta-texto { font-size: 0.7rem; padding-top: 14px; }
+}
+
 /* ---------- Página 404 ---------- */
 .no-encontrada { text-align: center; }
 .no-encontrada h2::before { content: none; }
