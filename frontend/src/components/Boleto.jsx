@@ -2,8 +2,8 @@
 // numero: el número del usuario, o nada si todavía no se sabe quién es (login).
 // abajo: true la cuelga de la esquina inferior izquierda en vez de la superior derecha.
 export default function Boleto({ numero, abajo = false }) {
-  // padStart completa con ceros a la izquierda: 2 -> "000002"
-  const texto = numero ? String(numero).padStart(6, "0") : "??????";
+  // le pego ceros adelante y me quedo con los últimos 6 caracteres: 2 -> "000002"
+  const texto = numero ? ("000000" + numero).slice(-6) : "??????";
 
   return (
     <div className={"boleto" + (abajo ? " abajo" : "")} aria-hidden={!numero}>

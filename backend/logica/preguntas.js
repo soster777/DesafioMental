@@ -24,7 +24,8 @@ export function validarPregunta(datos) {
     }
     if (opciones.length !== 4 || opciones.includes("")) {
         errores.push("Tiene que haber 4 opciones completas.");
-    } else if (new Set(opciones).size !== 4) {
+    } else if (opciones.some((opcion, i) => opciones.indexOf(opcion) !== i)) {
+        // si indexOf encuentra la opción en otra posición, es que está repetida
         errores.push("Las opciones no se pueden repetir.");
     }
     if (![0, 1, 2, 3].includes(correcta)) {

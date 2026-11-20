@@ -35,7 +35,7 @@ export function AppProvider({ children }) {
   async function logout() {
     try {
       await api.post("/auth/logout");
-    } catch {
+    } catch (error) {
       // aunque falle el servidor, la sesión se cierra igual en este navegador
     }
     borrarToken();

@@ -4,6 +4,7 @@
 const CX = 60; // centro de la esfera
 const CY = 82;
 const R = 42; // radio de la esfera
+const MARCAS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // una marca por hora
 
 // estado del reloj según los segundos que quedan (lo usa también Partida para pintar los bordes)
 export function estadoTiempo(segundos) {
@@ -46,7 +47,7 @@ export default function RelojBolsillo({ segundos, total }) {
           fraccion > 0 && <path d={gajo} className="reloj-gajo" />
         )}
         {/* 12 marcas como las horas */}
-        {Array.from({ length: 12 }, (_, i) => (
+        {MARCAS.map((i) => (
           <line
             key={i}
             x1={CX} y1={CY - R + 3} x2={CX} y2={CY - R + (i % 3 === 0 ? 11 : 7)}

@@ -18,7 +18,9 @@ export default function AdminPreguntas() {
   const [enviando, setEnviando] = useState(false);
 
   const lista = preguntas.datos || [];
-  const categorias = [...new Set(lista.map((p) => p.categoria))];
+  // categorías sin repetir: me quedo con cada una solo la primera vez que aparece
+  const todas = lista.map((p) => p.categoria);
+  const categorias = todas.filter((c, i) => todas.indexOf(c) === i);
 
   function cambiarOpcion(indice, texto) {
     const opciones = form.opciones.map((opcion, i) => (i === indice ? texto : opcion));

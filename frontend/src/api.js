@@ -27,7 +27,7 @@ async function pedir(metodo, ruta, cuerpo) {
   let respuesta;
   try {
     respuesta = await fetch("/api" + ruta, opciones);
-  } catch {
+  } catch (error) {
     throw new Error("No se pudo conectar con el servidor.");
   }
   if (respuesta.status === 204) {
@@ -35,9 +35,9 @@ async function pedir(metodo, ruta, cuerpo) {
   }
   const datos = await respuesta.json().catch(() => null);
   if (!respuesta.ok) {
-    const error = new Error(datos?.error || "El servidor no respondió correctamente.");
+    const error = new Error((datos && datos.error) || "El servidor no respondió correctamente.");
     error.status = respuesta.status;
-    error.errores = datos?.errores || [];
+    error.errores = (datos && datos.errores) || [];
     throw error;
   }
   return datos;

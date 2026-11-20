@@ -18,7 +18,7 @@ router.get("/", soloAdmin, (req, res) => {
 });
 
 router.post("/", soloAdmin, (req, res) => {
-    const { errores, pregunta } = validarPregunta(req.body ?? {});
+    const { errores, pregunta } = validarPregunta(req.body || {});
     if (errores.length > 0) {
         return res.status(400).json({ error: "Revisá los datos de la pregunta.", errores: errores });
     }
@@ -35,7 +35,7 @@ router.put("/:id", soloAdmin, (req, res) => {
     if (!preguntas.some((p) => p.id === id)) {
         return res.status(404).json({ error: "No existe la pregunta " + req.params.id + "." });
     }
-    const { errores, pregunta } = validarPregunta(req.body ?? {});
+    const { errores, pregunta } = validarPregunta(req.body || {});
     if (errores.length > 0) {
         return res.status(400).json({ error: "Revisá los datos de la pregunta.", errores: errores });
     }

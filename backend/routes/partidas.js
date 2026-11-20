@@ -63,7 +63,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    const cuerpo = req.body ?? {};
+    const cuerpo = req.body || {};
     const categoria = comoTexto(cuerpo.categoria);
     const cantidad = Number(cuerpo.cantidad);
     if (![5, 10].includes(cantidad)) {
@@ -111,7 +111,7 @@ router.post("/:id/respuestas", (req, res) => {
     }
 
     const pregunta = preguntaActual(partida);
-    const cuerpo = req.body ?? {};
+    const cuerpo = req.body || {};
     let opcion = cuerpo.opcion === null ? null : Number(cuerpo.opcion);
     if (opcion !== null && !(Number.isInteger(opcion) && opcion >= 0 && opcion < pregunta.opciones.length)) {
         return res.status(400).json({ error: "La opción elegida no es válida." });
@@ -141,7 +141,7 @@ router.patch("/:id", (req, res) => {
     if (partida === null) {
         return;
     }
-    if ((req.body ?? {}).estado !== "abandonada") {
+    if ((req.body || {}).estado !== "abandonada") {
         return res.status(400).json({ error: "Solo se puede cambiar el estado a abandonada." });
     }
     if (partida.estado !== "en curso") {
