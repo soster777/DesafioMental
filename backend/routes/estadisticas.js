@@ -28,7 +28,9 @@ router.get("/estadisticas/:categoria", requiereSesion, (req, res) => {
 // GET /api/ranking -> ranking general; GET /api/ranking?categoria=Historia -> solo esa categoría
 router.get("/ranking", requiereSesion, (req, res) => {
     const categoria = req.query.categoria;
-    let partidas = leer("partidas");
+    // las partidas de prueba de los admins no compiten
+    const admins = leer("usuarios").filter((u) => u.rol === "admin").map((u) => u.usuario);
+    let partidas = leer("partidas").filter((p) => !admins.includes(p.usuario));
     if (categoria) {
         partidas = partidas.filter((p) => p.categoria === categoria);
     }
