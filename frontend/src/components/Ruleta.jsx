@@ -1,7 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 
-const COLORES = ["#9e1b1b", "#f6ecd4", "#3d5a80", "#e8c35a"];
+const COLORES = [
+  { fondo: "#9e1b1b", oscuro: false },
+  { fondo: "#f6ecd4", oscuro: true },
+  { fondo: "#3d5a80", oscuro: false },
+  { fondo: "#e8c35a", oscuro: true },
+  { fondo: "#3d6b35", oscuro: false },
+];
 const DURACION_GIRO = 3200;
+
+// [String] -> [Color]
+// la rueda es circular: el último gajo toca al primero, así que tampoco puede repetir su color
+function colorearGajos(categorias) {
+  const colores = [];
+  for (let i = 0; i < categorias.length; i++) {
+    let color = COLORES[i % COLORES.length];
+    const esUltimo = i > 0 && i === categorias.length - 1;
+    if (esUltimo && color === colores[0]) {
+      color = COLORES.find((c) => c !== colores[0] && c !== colores[i - 1]);
+    }
+    colores.push(color);
+  }
+  return colores;
+}
 
 export default function Ruleta({ categorias, onElegir }) {
   const [giro, setGiro] = useState(0);
@@ -13,9 +34,8 @@ export default function Ruleta({ categorias, onElegir }) {
   }, []);
 
   const porcion = 360 / categorias.length;
-  const gajos = categorias
-    .map((c, i) => COLORES[i % COLORES.length] + " " + i * porcion + "deg " + (i + 1) * porcion + "deg")
-    .join(", ");
+  const colores = colorearGajos(categorias);
+  const gajos = colores.map((c, i) => c.fondo + " " + i * porcion + "deg " + (i + 1) * porcion + "deg").join(", ");
 
   function girar() {
     const elegida = Math.floor(Math.random() * categorias.length);
@@ -41,7 +61,7 @@ export default function Ruleta({ categorias, onElegir }) {
           {categorias.map((c, i) => (
             <span
               key={c}
-              className={"ruleta-texto" + (i % COLORES.length === 1 || i % COLORES.length === 3 ? " oscuro" : "")}
+              className={"ruleta-texto" + (colores[i].oscuro ? " oscuro" : "")}
               style={{ transform: "rotate(" + (i * porcion + porcion / 2) + "deg)" }}
             >
               {c}
