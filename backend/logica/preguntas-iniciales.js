@@ -1,7 +1,7 @@
 export const PREGUNTAS_INICIALES = [
   // Historia
   { id: 1, categoria: 'Historia', enunciado: '¿En qué año llegó Colón a América?', opciones: ['1488', '1492', '1500', '1510'], correcta: 1, puntos: 10 },
-  { id: 2, categoria: 'Historia', enunciado: '¿Quién fue el primer presidente de la Argentina?', opciones: ['Bartolomé Mitre', 'Domingo F. Sarmiento', 'Bernardino Rivadavia', 'Justo José de Urquiza'], correcta: 2, puntos: 20 },
+  { id: 2, categoria: 'Historia', enunciado: '¿Quién fue el primer presidente de la Argentina?', opciones: ['Manuel Belgrano', 'Domingo F. Sarmiento', 'Bernardino Rivadavia', 'Juan Manuel de Rosas'], correcta: 2, puntos: 20 },
   { id: 3, categoria: 'Historia', enunciado: '¿En qué año se declaró la independencia argentina?', opciones: ['1816', '1810', '1820', '1806'], correcta: 0, puntos: 10 },
   { id: 4, categoria: 'Historia', enunciado: '¿Qué civilización construyó Machu Picchu?', opciones: ['Mayas', 'Aztecas', 'Olmecas', 'Incas'], correcta: 3, puntos: 10 },
   { id: 5, categoria: 'Historia', enunciado: '¿En qué año cayó el Muro de Berlín?', opciones: ['1985', '1991', '1989', '1975'], correcta: 2, puntos: 20 },
