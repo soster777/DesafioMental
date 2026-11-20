@@ -8,6 +8,7 @@ import ErrorCarga from "../components/ErrorCarga.jsx";
 import Datos from "../components/Datos.jsx";
 import Houdini from "../components/Houdini.jsx";
 import Boleto from "../components/Boleto.jsx";
+import Ruleta from "../components/Ruleta.jsx";
 
 const CANTIDADES = [5, 10];
 
@@ -100,6 +101,13 @@ export default function Menu() {
             </button>
           ))}
         </div>
+        <Ruleta
+          categorias={lista}
+          onElegir={(c) => {
+            setCategoria(c);
+            mostrarMensaje("¡La suerte eligió " + c + "!", "exito");
+          }}
+        />
 
         <p className="rotulo" id="rotulo-cantidad">Preguntas</p>
         <div className="selector cantidades" role="group" aria-labelledby="rotulo-cantidad">
