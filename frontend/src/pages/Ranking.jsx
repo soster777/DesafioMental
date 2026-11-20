@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
-import Categoria from "../components/Categoria.jsx";
+import Categoria, { colorDeCategoria } from "../components/Categoria.jsx";
 import { Corona, Medalla } from "../components/Recortes.jsx";
 import { formatearFecha, formatearDuracion } from "../utils/formato.js";
 
@@ -35,7 +35,14 @@ export default function Ranking() {
       <p className="vacio">Top 10 por puntaje. Si empatan, gana la partida más rápida y después la más antigua.</p>
       <div className="pestanas">
         {pestanas.map(([valor, texto]) => (
-          <button key={texto} type="button" aria-pressed={categoria === valor} onClick={() => setCategoria(valor)}>
+          <button
+            key={texto}
+            type="button"
+            className={valor ? "con-color" : ""}
+            style={valor ? { "--color-categoria": colorDeCategoria(valor).borde } : undefined}
+            aria-pressed={categoria === valor}
+            onClick={() => setCategoria(valor)}
+          >
             {texto}
           </button>
         ))}

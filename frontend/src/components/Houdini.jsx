@@ -9,7 +9,6 @@ const FRASES = [
 ];
 const CADA_CUANTO = 8000; // milisegundos entre frase y frase
 
-// la pantalla que lo usa necesita la clase "con-houdini"
 export default function Houdini() {
   const [sinFoto, setSinFoto] = useState(false);
   const [indice, setIndice] = useState(0);

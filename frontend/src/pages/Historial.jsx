@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
-import Categoria from "../components/Categoria.jsx";
+import Categoria, { colorDeCategoria } from "../components/Categoria.jsx";
 import { formatearFecha } from "../utils/formato.js";
 
 const ESTADOS = [
@@ -31,7 +31,14 @@ export default function Historial() {
       <p className="rotulo" id="rotulo-hist-categoria">Categoría</p>
       <div className="pestanas" role="group" aria-labelledby="rotulo-hist-categoria">
         {[["todas", "Todas"], ...(categorias.datos || []).map((c) => [c, c])].map(([valor, texto]) => (
-          <button key={valor} type="button" aria-pressed={categoria === valor} onClick={() => setCategoria(valor)}>
+          <button
+            key={valor}
+            type="button"
+            className={valor !== "todas" ? "con-color" : ""}
+            style={valor !== "todas" ? { "--color-categoria": colorDeCategoria(valor).borde } : undefined}
+            aria-pressed={categoria === valor}
+            onClick={() => setCategoria(valor)}
+          >
             {texto}
           </button>
         ))}

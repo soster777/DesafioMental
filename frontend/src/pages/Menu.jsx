@@ -5,9 +5,7 @@ import { useApp } from "../context/AppContext.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
-import Datos from "../components/Datos.jsx";
 import Houdini from "../components/Houdini.jsx";
-import Boleto from "../components/Boleto.jsx";
 
 export default function Menu() {
   const { usuario } = useApp();
@@ -45,26 +43,34 @@ export default function Menu() {
     };
   }, [categorias.datos]);
 
-  return (
-    <section className="pantalla con-houdini con-boleto-abajo">
-      <Boleto numero={usuario.id} abajo />
-      <h2>Hola, {usuario.usuario}</h2>
-      <Houdini />
-      <Link to="/jugar" className="boton-link boton-jugar">¡A jugar!</Link>
+  const s = stats.datos;
 
-      <h3>Tus estadísticas</h3>
+  return (
+    <section className="pantalla menu">
+      <div className="marquesina">
+        <p className="marquesina-sub">Esta noche, función especial para</p>
+        <h2>{usuario.usuario}</h2>
+      </div>
+
+      <div className="escenario">
+        <Houdini />
+      </div>
+
+      <Link to="/jugar" className="boton-funcion">
+        <span>¡A jugar!</span>
+        <small>Entrada N° {("000000" + usuario.id).slice(-6)}</small>
+      </Link>
+
       {stats.cargando && <Cargando texto="Cargando estadísticas..." />}
       {stats.error && <ErrorCarga texto={stats.error} onReintentar={stats.recargar} />}
-      {stats.datos && !stats.cargando && (
-        <Datos
-          datos={[
-            ["Partidas completadas", stats.datos.completadas],
-            ["Preguntas respondidas", stats.datos.respondidas],
-            ["Aciertos", stats.datos.porcentaje + "%"],
-            ["Puntaje más alto", stats.datos.mejorPuntaje],
-            ["Mejor racha", stats.datos.mejorRacha],
-          ]}
-        />
+      {s && !stats.cargando && (
+        <ul className="fichas">
+          <li><strong>{s.completadas}</strong><span>Partidas</span></li>
+          <li><strong>{s.respondidas}</strong><span>Respondidas</span></li>
+          <li><strong>{s.porcentaje}%</strong><span>Aciertos</span></li>
+          <li><strong>{s.mejorPuntaje}</strong><span>Récord</span></li>
+          <li><strong>{s.mejorRacha}</strong><span>Mejor racha</span></li>
+        </ul>
       )}
 
       <h3>Aciertos por categoría</h3>
@@ -74,22 +80,19 @@ export default function Menu() {
       {errorPorcentajes && <p className="carga-error">No se pudieron cargar los porcentajes.</p>}
       {!porcentajes && !errorPorcentajes && lista.length > 0 && <Cargando texto="Cargando porcentajes..." />}
       {porcentajes && (
-        <ul className="porcentajes">
+        <div className="medallero">
           {lista.map((c) => {
             const valor = porcentajes[c];
             return (
-              <li key={c}>
-                <span className="nombre">{c}</span>
-                <span className="barra-porcentaje">
-                  <span style={{ width: (valor || 0) + "%" }} />
+              <div key={c} className="medalla-aciertos">
+                <span className="circulo-aciertos" style={{ "--valor": (valor || 0) * 3.6 + "deg" }}>
+                  {valor === null ? "—" : valor + "%"}
                 </span>
-                <span className={valor === null ? "valor sin-jugar" : "valor"}>
-                  {valor === null ? "Sin jugar" : valor + "%"}
-                </span>
-              </li>
+                <span>{c}</span>
+              </div>
             );
           })}
-        </ul>
+        </div>
       )}
     </section>
   );

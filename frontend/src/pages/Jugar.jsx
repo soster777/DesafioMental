@@ -6,6 +6,7 @@ import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
 import Ruleta from "../components/Ruleta.jsx";
+import { colorDeCategoria } from "../components/Categoria.jsx";
 
 const CANTIDADES = [5, 10];
 
@@ -53,9 +54,15 @@ export default function Jugar() {
 
         <form className="armar-partida" onSubmit={jugar}>
           <p className="rotulo" id="rotulo-categoria">Categoría</p>
-          <div className="selector" role="group" aria-labelledby="rotulo-categoria">
+          <div className="selector categorias" role="group" aria-labelledby="rotulo-categoria">
             {lista.map((c) => (
-              <button key={c} type="button" aria-pressed={c === categoriaJuego} onClick={() => setCategoria(c)}>
+              <button
+                key={c}
+                type="button"
+                aria-pressed={c === categoriaJuego}
+                onClick={() => setCategoria(c)}
+                style={{ "--color-categoria": colorDeCategoria(c).borde }}
+              >
                 {c}
               </button>
             ))}
