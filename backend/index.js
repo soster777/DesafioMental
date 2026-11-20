@@ -1,4 +1,5 @@
 import express from "express";
+import path from "node:path";
 import { inicializarDatos } from "./datos.js";
 import authRoutes from "./routes/auth.js";
 import preguntasRoutes from "./routes/preguntas.js";
@@ -16,6 +17,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/preguntas", preguntasRoutes);
 app.use("/api/partidas", partidasRoutes);
 app.use("/api", estadisticasRoutes);
+
+// en producción el mismo servidor entrega el frontend ya compilado
+const FRONTEND = path.join(import.meta.dirname, "..", "frontend", "dist");
+app.use(express.static(FRONTEND));
+app.use((req, res, next) => {
+    if (req.method !== "GET" || req.path.startsWith("/api")) return next();
+    // las rutas de React Router no son archivos, así que siempre devuelvo index.html
+    res.sendFile(path.join(FRONTEND, "index.html"), (err) => err && next());
+});
 
 // si ninguna ruta respondió, no existe
 app.use((req, res) => {
