@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import preguntasRoutes from "./routes/preguntas.js";
 import partidasRoutes from "./routes/partidas.js";
 import estadisticasRoutes from "./routes/estadisticas.js";
+import usuariosRoutes from "./routes/usuarios.js";
 
 const PUERTO = process.env.PORT || 3000;
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/preguntas", preguntasRoutes);
 app.use("/api/partidas", partidasRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 app.use("/api", estadisticasRoutes);
 
 // en producción el mismo servidor entrega el frontend ya compilado
