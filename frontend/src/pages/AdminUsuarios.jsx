@@ -67,7 +67,7 @@ export default function AdminUsuarios() {
                         <option value="admin">admin</option>
                       </select>
                     </td>
-                    <td>{u.partidas}</td>
+                    <td>{u.partidas === null ? "—" : u.partidas}</td>
                     <td>
                       <div className="celda-acciones">
                         <button type="button" className="secundario" disabled={soyYo} onClick={() => eliminar(u)}>

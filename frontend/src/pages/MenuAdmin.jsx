@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
 import { useApp } from "../context/AppContext.jsx";
 import { useDatos } from "../hooks/useDatos.js";
-import { IconoPregunta, IconoUsuarios, IconoTrofeo, IconoCarpa } from "../components/Iconos.jsx";
-
-const ACCESOS = [
-  { a: "/admin/preguntas", titulo: "Gestionar preguntas", texto: "Alta, edición y baja del banco.", Icono: IconoPregunta },
-  { a: "/admin/usuarios", titulo: "Gestionar usuarios", texto: "Roles y bajas de cuentas.", Icono: IconoUsuarios },
-  { a: "/ranking", titulo: "Ver ranking", texto: "Los mejores puntajes de los jugadores.", Icono: IconoTrofeo },
-  { a: "/jugar", titulo: "Probar partida", texto: "No cuenta para el ranking.", Icono: IconoCarpa },
-];
+import { IconoCarpa } from "../components/Iconos.jsx";
 
 export default function MenuAdmin() {
   const { usuario } = useApp();
@@ -16,7 +9,7 @@ export default function MenuAdmin() {
   const preguntas = useDatos("/preguntas");
 
   const listaUsuarios = usuarios.datos || [];
-  const jugadas = listaUsuarios.reduce((total, u) => total + u.partidas, 0);
+  const jugadas = listaUsuarios.reduce((total, u) => total + (u.partidas || 0), 0);
 
   return (
     <section className="pantalla panel-admin">
@@ -29,15 +22,11 @@ export default function MenuAdmin() {
         <li><strong>{usuarios.datos ? jugadas : "—"}</strong><span>Partidas jugadas</span></li>
       </ul>
 
-      <nav className="panel-accesos">
-        {ACCESOS.map(({ a, titulo, texto, Icono }) => (
-          <Link key={a} to={a}>
-            <Icono />
-            <strong>{titulo}</strong>
-            <span>{texto}</span>
-          </Link>
-        ))}
-      </nav>
+      <Link to="/jugar" className="panel-probar">
+        <IconoCarpa />
+        <strong>Probar partida</strong>
+        <span>No cuenta para el ranking.</span>
+      </Link>
     </section>
   );
 }

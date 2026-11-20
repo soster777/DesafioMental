@@ -12,12 +12,14 @@ export default function Barra() {
     navigate("/login");
   }
 
-  const links = [
-    { a: "/menu", texto: "Menú", Icono: IconoCarpa },
-    { a: "/historial", texto: "Historial", Icono: IconoPergamino },
-    { a: "/ranking", texto: "Ranking", Icono: IconoTrofeo },
-  ];
-  if (usuario && usuario.rol === "admin") {
+  const esAdmin = usuario && usuario.rol === "admin";
+  const links = [{ a: "/menu", texto: "Menú", Icono: IconoCarpa }];
+  // el admin solo prueba partidas, así que no tiene historial
+  if (!esAdmin) {
+    links.push({ a: "/historial", texto: "Historial", Icono: IconoPergamino });
+  }
+  links.push({ a: "/ranking", texto: "Ranking", Icono: IconoTrofeo });
+  if (esAdmin) {
     links.push({ a: "/admin/preguntas", texto: "Preguntas", Icono: IconoPregunta });
     links.push({ a: "/admin/usuarios", texto: "Usuarios", Icono: IconoUsuarios });
   }

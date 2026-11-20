@@ -1047,16 +1047,12 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 }
 .panel-numeros strong { font-family: var(--fuente-titulo); font-size: 1.8rem; line-height: 1.1; }
 .panel-numeros span { font-size: 0.85rem; color: var(--suave); }
-.panel-accesos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-.panel-accesos a {
+.panel-probar {
   display: grid;
   grid-template-columns: 32px 1fr;
   column-gap: 12px;
   align-items: center;
+  max-width: 360px;
   padding: 14px 16px;
   color: var(--texto);
   text-decoration: none;
@@ -1066,9 +1062,9 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   border-radius: var(--radio);
   transition: border-color 0.15s, background 0.15s;
 }
-.panel-accesos a:hover { background: #fbf5e6; border-color: var(--principal); }
-.panel-accesos svg { grid-row: span 2; width: 28px; height: 28px; color: var(--principal); }
-.panel-accesos span { font-size: 0.85rem; color: var(--suave); }
+.panel-probar:hover { background: #fbf5e6; border-color: var(--principal); }
+.panel-probar svg { grid-row: span 2; width: 28px; height: 28px; color: var(--principal); }
+.panel-probar span { font-size: 0.85rem; color: var(--suave); }
 .aviso-prueba {
   margin: -6px 0 14px;
   padding: 8px 12px;
@@ -1081,5 +1077,5 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .panel-numeros li { padding: 8px; }
   .panel-numeros strong { font-size: 1.3rem; }
   .panel-numeros span { font-size: 0.7rem; }
-  .panel-accesos { grid-template-columns: 1fr; }
+  .panel-probar { max-width: none; }
 }

@@ -13,7 +13,8 @@ router.get("/", (req, res) => {
     const partidas = leer("partidas");
     const usuarios = leer("usuarios").map((u) => ({
         ...datosPublicos(u),
-        partidas: partidas.filter((p) => p.usuario === u.usuario && p.estado === "completada").length,
+        // las del admin son de prueba, no cuentan
+        partidas: u.rol === "admin" ? null : partidas.filter((p) => p.usuario === u.usuario && p.estado === "completada").length,
     }));
     res.json(usuarios);
 });
