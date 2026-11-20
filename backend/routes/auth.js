@@ -16,7 +16,7 @@ import {
 const router = Router();
 
 router.post("/registro", (req, res) => {
-    const cuerpo = req.body ?? {};
+    const cuerpo = req.body || {};
     const datos = {
         usuario: comoTexto(cuerpo.usuario).trim(),
         email: comoTexto(cuerpo.email).trim(),
@@ -47,7 +47,7 @@ router.post("/registro", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    const cuerpo = req.body ?? {};
+    const cuerpo = req.body || {};
     const usuario = buscarPorNombre(leer("usuarios"), comoTexto(cuerpo.usuario));
     if (usuario === undefined || !claveCorrecta(comoTexto(cuerpo.clave), usuario.clave)) {
         return res.status(401).json({ error: "Los datos ingresados son incorrectos." });

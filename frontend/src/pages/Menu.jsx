@@ -28,21 +28,27 @@ export default function Menu() {
   const lista = categorias.datos || [];
   const categoriaJuego = categoria || lista[0] || "";
 
-  // cuando llegan las categorías pido el porcentaje de cada una, todas a la vez
+  // cuando llegan las categorías pido el porcentaje de cada una
   useEffect(() => {
     if (!categorias.datos) return;
     let vigente = true;
-    // Promise.all espera a que terminen todas las peticiones; si una falla, falla todo junto
-    Promise.all(categorias.datos.map((c) => api.get("/estadisticas/" + encodeURIComponent(c))))
-      .then((respuestas) => {
-        if (!vigente) return;
+
+    // useEffect no puede ser async, así que armo la función async adentro y la llamo
+    async function cargarPorcentajes() {
+      try {
         const resultado = {};
-        respuestas.forEach((r) => (resultado[r.categoria] = r.porcentaje));
-        setPorcentajes(resultado);
-      })
-      .catch(() => {
+        for (let i = 0; i < categorias.datos.length; i++) {
+          const c = categorias.datos[i];
+          const respuesta = await api.get("/estadisticas/" + encodeURIComponent(c));
+          resultado[c] = respuesta.porcentaje;
+        }
+        if (vigente) setPorcentajes(resultado);
+      } catch (error) {
         if (vigente) setErrorPorcentajes(true);
-      });
+      }
+    }
+    cargarPorcentajes();
+
     // si se sale del menú antes de que lleguen, descarto las respuestas
     return () => {
       vigente = false;
@@ -124,7 +130,7 @@ export default function Menu() {
                 <span className="nombre">{c}</span>
                 {/* la barra se llena según el porcentaje; si no jugó, queda vacía */}
                 <span className="barra-porcentaje">
-                  <span style={{ width: (valor ?? 0) + "%" }} />
+                  <span style={{ width: (valor || 0) + "%" }} />
                 </span>
                 <span className={valor === null ? "valor sin-jugar" : "valor"}>
                   {valor === null ? "Sin jugar" : valor + "%"}
