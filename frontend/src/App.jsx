@@ -48,7 +48,10 @@ export default function App() {
           <Route path="/jugar" element={<RutaPrivada><Jugar /></RutaPrivada>} />
           <Route path="/partida/:id" element={<RutaPrivada><Partida /></RutaPrivada>} />
           <Route path="/resultados/:id" element={<RutaPrivada><Resultados /></RutaPrivada>} />
-          <Route path="/historial" element={<RutaPrivada><Historial /></RutaPrivada>} />
+          <Route
+            path="/historial"
+            element={<RutaPrivada>{usuario && usuario.rol === "admin" ? <Navigate to="/menu" replace /> : <Historial />}</RutaPrivada>}
+          />
           <Route path="/ranking" element={<RutaPrivada><Ranking /></RutaPrivada>} />
           <Route path="/admin/preguntas" element={<RutaPrivada soloAdmin><AdminPreguntas /></RutaPrivada>} />
           <Route path="/admin/usuarios" element={<RutaPrivada soloAdmin><AdminUsuarios /></RutaPrivada>} />
