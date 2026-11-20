@@ -6,6 +6,7 @@ import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
 import Houdini from "../components/Houdini.jsx";
+import { colorDeCategoria } from "../components/Categoria.jsx";
 
 export default function Menu() {
   const { usuario } = useApp();
@@ -84,11 +85,13 @@ export default function Menu() {
           {lista.map((c) => {
             const valor = porcentajes[c];
             return (
-              <div key={c} className="medalla-aciertos">
-                <span className="circulo-aciertos" style={{ "--valor": (valor || 0) * 3.6 + "deg" }}>
-                  {valor === null ? "—" : valor + "%"}
-                </span>
-                <span>{c}</span>
+              <div
+                key={c}
+                className="medalla-aciertos"
+                style={{ "--valor": (valor || 0) * 3.6 + "deg", "--color-categoria": colorDeCategoria(c).borde }}
+              >
+                <span className="circulo-aciertos">{valor === null ? "—" : valor + "%"}</span>
+                <span className="cinta">{c}</span>
               </div>
             );
           })}
