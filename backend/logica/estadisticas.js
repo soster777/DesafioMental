@@ -1,3 +1,5 @@
+import { MEZCLADAS } from "./partida.js";
+
 // [Partida] -> String -> [Partida]
 export function partidasDelUsuario(partidas, usuario) {
     return partidas.filter((partida) => partida.usuario === usuario);
@@ -138,6 +140,12 @@ function calcularPorcentaje(aciertos) {
 
 // [Partida] -> String -> Number
 export function porcentajePorCategoria(partidas, categoria) {
+    if (categoria === MEZCLADAS) {
+        // en una partida mezclada cada respuesta queda con la categoría de su pregunta,
+        // así que acá filtro por partida y cuento todas sus respuestas
+        const calcularMezcladas = compositeAll([calcularPorcentaje, aAciertos, todasLasRespuestas]);
+        return calcularMezcladas(partidas.filter((partida) => partida.categoria === MEZCLADAS));
+    }
     const calcular = compositeAll([calcularPorcentaje, aAciertos, deLaCategoria(categoria), todasLasRespuestas]);
     return calcular(partidas);
 }
