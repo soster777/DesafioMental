@@ -1,10 +1,6 @@
-// Dibujos en SVG con estética de recorte de revista (el borde blanco y la sombra se los pone el CSS).
-// Están hechos a mano acá para no depender de imágenes de internet ni de librerías de íconos.
-
 export function Llave() {
   return (
     <svg viewBox="0 0 120 60">
-      {/* evenodd hace que el círculo de adentro quede hueco */}
       <path fillRule="evenodd" d="M25 8a22 22 0 1 0 .01 0zM25 21a9 9 0 1 1-.01 0z" fill="#d9a53a" stroke="#7a5512" strokeWidth="2" />
       <rect x="45" y="25" width="70" height="10" rx="2" fill="#d9a53a" stroke="#7a5512" strokeWidth="2" />
       <rect x="88" y="34" width="8" height="14" fill="#d9a53a" stroke="#7a5512" strokeWidth="2" />
@@ -109,7 +105,6 @@ export function Corona() {
   );
 }
 
-// medalla con cinta; el color cambia según el puesto
 export function Medalla({ metal, texto }) {
   return (
     <svg viewBox="0 0 80 110">
@@ -117,13 +112,11 @@ export function Medalla({ metal, texto }) {
       <path d="M62 2H44L34 42h18z" fill="#1c2333" />
       <circle cx="40" cy="70" r="30" fill={metal.claro} stroke={metal.oscuro} strokeWidth="5" />
       <circle cx="40" cy="70" r="20" fill="none" stroke={metal.oscuro} strokeWidth="2" strokeDasharray="3 3" />
-      {/* textAnchor centra en horizontal y dominantBaseline en vertical, justo en el centro del círculo */}
       <text x="40" y="71" textAnchor="middle" dominantBaseline="central" fontFamily="Georgia, serif" fontSize="28" fontWeight="700" fill={metal.oscuro}>{texto}</text>
     </svg>
   );
 }
 
-// dónde va cada recorte de fondo: se reparten en los márgenes izquierdo y derecho
 const DECORADO = [
   { Dibujo: Lamparita, clase: "izq", top: "14%", lado: "4%", ancho: 96, giro: -12 },
   { Dibujo: Esposas, clase: "izq", top: "40%", lado: "2%", ancho: 130, giro: 10 },
@@ -137,7 +130,6 @@ const DECORADO = [
 
 export default function Recortes() {
   return (
-    // aria-hidden: es pura decoración, un lector de pantalla no tiene que leerlo
     <div className="recortes" aria-hidden="true">
       {DECORADO.map(({ Dibujo, clase, top, lado, ancho, giro }, i) => (
         <div

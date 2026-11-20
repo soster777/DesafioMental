@@ -124,7 +124,6 @@ export default function Partida() {
     return "";
   }
 
-  // mientras se muestra la respuesta el reloj está frenado, así que no alarmo con los bordes
   const alerta = respondiendo ? "" : " tiempo-" + estadoTiempo(segundos);
 
   return (
@@ -136,7 +135,6 @@ export default function Partida() {
         <span>{partida.puntaje} pts</span>
         <RelojBolsillo segundos={segundos} total={SEGUNDOS_POR_PREGUNTA} />
       </div>
-      {/* la de la pregunta y no la de la partida: en "Mezcladas" así se ve de qué tema es cada una */}
       <Categoria nombre={pregunta.categoria} />
       <h2>{pregunta.enunciado}</h2>
       <div className="opciones">

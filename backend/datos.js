@@ -30,7 +30,7 @@ export function inicializarDatos() {
             { id: 1, usuario: "admin", email: "admin@desafiomental.com", clave: hashearClave("admin1234"), rol: "admin" },
         ]);
     }
-    // los usuarios guardados antes de que existiera el id lo reciben acá, una sola vez
+    // usuarios viejos sin id
     const usuarios = leer("usuarios");
     if (usuarios.some((u) => !u.id)) {
         guardar("usuarios", completarIds(usuarios));

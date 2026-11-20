@@ -6,11 +6,9 @@ import Categoria from "../components/Categoria.jsx";
 import { Corona, Medalla } from "../components/Recortes.jsx";
 import { formatearFecha, formatearDuracion } from "../utils/formato.js";
 
-// colores de las medallas del 2do y 3er puesto
 const PLATA = { claro: "#e3e6ea", oscuro: "#7b838c" };
 const BRONCE = { claro: "#e0a46a", oscuro: "#8a4f1d" };
 
-// clase CSS de cada puesto: le da el borde dorado, plateado o bronce
 const CLASE_PUESTO = ["oro", "plata", "bronce"];
 
 // número de puesto -> el recorte que lleva en la esquina (o nada)
@@ -35,7 +33,6 @@ export default function Ranking() {
     <section className="pantalla">
       <h2>Ranking</h2>
       <p className="vacio">Top 10 por puntaje. Si empatan, gana la partida más rápida y después la más antigua.</p>
-      {/* aria-pressed le dice al lector de pantalla cuál pestaña está elegida */}
       <div className="pestanas">
         {pestanas.map(([valor, texto]) => (
           <button key={texto} type="button" aria-pressed={categoria === valor} onClick={() => setCategoria(valor)}>
@@ -49,7 +46,6 @@ export default function Ranking() {
         <p className="vacio">Todavía no hay partidas completadas{categoria ? " de " + categoria : ""} para el ranking.</p>
       )}
       {!cargando && datos && datos.length > 0 && (
-        // una lista ordenada (ol) en vez de tabla: cada puesto es una tarjeta y así se puede decorar
         <ol className="ranking">
           {datos.map((partida, indice) => {
             const puesto = indice + 1;

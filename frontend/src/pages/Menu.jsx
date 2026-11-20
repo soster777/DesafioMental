@@ -28,7 +28,6 @@ export default function Menu() {
   const lista = categorias.datos || [];
   const categoriaJuego = categoria || lista[0] || "";
 
-  // cuando llegan las categorías pido el porcentaje de cada una
   useEffect(() => {
     if (!categorias.datos) return;
     let vigente = true;
@@ -49,7 +48,6 @@ export default function Menu() {
     }
     cargarPorcentajes();
 
-    // si se sale del menú antes de que lleguen, descarto las respuestas
     return () => {
       vigente = false;
     };
@@ -94,7 +92,6 @@ export default function Menu() {
         <ErrorCarga texto="No se pudieron cargar las preguntas." onReintentar={categorias.recargar} />
       )}
       <form className="armar-partida" onSubmit={jugar}>
-        {/* botones grandes en vez de un select: se ve todo de un vistazo y se elige con un toque */}
         <p className="rotulo" id="rotulo-categoria">Categoría</p>
         <div className="selector" role="group" aria-labelledby="rotulo-categoria">
           {lista.map((c) => (
@@ -128,7 +125,6 @@ export default function Menu() {
             return (
               <li key={c}>
                 <span className="nombre">{c}</span>
-                {/* la barra se llena según el porcentaje; si no jugó, queda vacía */}
                 <span className="barra-porcentaje">
                   <span style={{ width: (valor || 0) + "%" }} />
                 </span>

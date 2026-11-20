@@ -28,7 +28,6 @@ export default function Historial() {
         </div>
       )}
 
-      {/* filtros como pestañas, igual que en el ranking: cada lista es [valor, texto] */}
       <p className="rotulo" id="rotulo-hist-categoria">Categoría</p>
       <div className="pestanas" role="group" aria-labelledby="rotulo-hist-categoria">
         {[["todas", "Todas"], ...(categorias.datos || []).map((c) => [c, c])].map(([valor, texto]) => (
@@ -53,7 +52,7 @@ export default function Historial() {
       )}
       {historial.datos && !historial.cargando && historial.datos.partidas.length > 0 && (
         <div className="tabla-scroll">
-          {/* data-label repite el título de la columna en cada celda: en el celular la tabla se arma como tarjetas y lo muestra al lado del dato */}
+          {/* el CSS del celular usa data-label */}
           <table className="tabla-historial">
             <thead>
               <tr>

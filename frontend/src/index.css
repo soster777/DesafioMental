@@ -1,21 +1,19 @@
-/* Estética: cartel de circo / show de escapismo de principios del 1900.
-   Papel envejecido, rojo de imprenta, dorado, tinta negra y bordes dobles. */
 :root {
   --fondo: #e9dcbf;          /* papel viejo */
-  --tarjeta: #f6ecd4;        /* papel más claro, el del cartel */
+  --tarjeta: #f6ecd4;
   --texto: #1f1712;          /* tinta */
   --suave: #6e5a44;          /* tinta gastada */
   --principal: #9e1b1b;      /* rojo de cartel */
   --principal-oscuro: #6d1010;
   --dorado: #c8a03a;
   --dorado-oscuro: #8a6a1c;
-  --noche: #1c2333;          /* azul noche de los afiches */
-  --correcto: #3d6b35;       /* verde apagado, de imprenta */
+  --noche: #1c2333;
+  --correcto: #3d6b35;
   --incorrecto: #b3261e;
   --borde: #b9a27a;
-  --radio: 4px;              /* esquinas casi rectas, como un cartel impreso */
+  --radio: 4px;
 
-  --azul: #3d5a80;           /* azul de los rayos del afiche */
+  --azul: #3d5a80;
   --fuente-titulo: "Bowlby One SC", Impact, "Arial Black", sans-serif;
   --fuente-sub: "Playfair Display SC", Georgia, serif;
   --fuente-texto: "Old Standard TT", Georgia, "Times New Roman", serif;
@@ -29,9 +27,6 @@ body {
   font-size: 1.05rem;
   color: var(--texto);
   line-height: 1.55;
-  /* rayos de sol rojo, crema y azul como el afiche de referencia.
-     repeating-conic-gradient repite gajos alrededor de un centro; arriba van manchas de papel viejo */
-  /* capas de arriba hacia abajo: viñeta en los bordes, velo oscuro parejo que baja la saturación, y los rayos */
   background:
     radial-gradient(circle at 50% 45%, transparent 35%, rgba(20, 12, 6, 0.55) 100%),
     linear-gradient(rgba(28, 20, 14, 0.42), rgba(28, 20, 14, 0.42)),
@@ -41,7 +36,6 @@ body {
   min-height: 100vh;
 }
 
-/* Barra: carpa de circo con rayas rojas y crema y un ribete dorado abajo */
 .barra {
   display: flex;
   justify-content: space-between;
@@ -61,7 +55,6 @@ body {
   font-size: 2rem;
   letter-spacing: 1px;
   color: #fff;
-  /* contorno negro + sombra dura, como las letras del afiche */
   -webkit-text-stroke: 2px #111;
   paint-order: stroke fill;
   text-shadow: 3px 3px 0 var(--principal);
@@ -73,7 +66,6 @@ main {
   padding: 0 16px;
 }
 
-/* Cada pantalla es un cartel: borde doble rojo y un marco interior dorado */
 .pantalla {
   position: relative;
   background: var(--tarjeta);
@@ -96,13 +88,11 @@ h2 {
   font-size: 3rem;
   line-height: 1.1;
   color: #fff;
-  /* paint-order hace que el contorno se pinte detrás del relleno, así no se come la letra */
   -webkit-text-stroke: 4px #111;
   paint-order: stroke fill;
   text-shadow: 4px 4px 0 var(--principal);
   letter-spacing: 1px;
 }
-/* una estrellita antes del título, típica de los afiches */
 h2::before { content: "\2605"; color: var(--principal); -webkit-text-stroke: 0; text-shadow: none; font-size: 1.4rem; vertical-align: middle; margin-right: 12px; }
 
 h3 {
@@ -112,7 +102,6 @@ h3 {
   font-size: 1.5rem;
   letter-spacing: 2px;
   color: var(--noche);
-  /* línea decorativa debajo, como separador de cartel */
   padding-bottom: 6px;
   border-bottom: 1px solid var(--borde);
 }
@@ -141,7 +130,6 @@ input, select, textarea {
 }
 input:focus, select:focus, textarea:focus { outline: 2px solid var(--dorado); border-color: var(--principal); }
 
-/* Botones: como entrada de función, rojo con borde dorado y letras espaciadas */
 button {
   padding: 10px 20px;
   border: 2px solid var(--dorado);
@@ -158,7 +146,6 @@ button {
   transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
 }
 button:hover:not(:disabled) { background: var(--principal-oscuro); }
-/* al apretar se "hunde" la sombra */
 button:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--noche); }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 button.secundario { background: transparent; color: var(--principal); border: 2px solid var(--principal); }
@@ -169,7 +156,6 @@ a { color: var(--principal); }
 
 .errores { color: var(--incorrecto); margin: 0; padding-left: 20px; }
 
-/* Mensajes flotantes: un boleto de circo */
 .mensaje {
   position: fixed;
   top: 16px;
@@ -189,7 +175,6 @@ a { color: var(--principal); }
 .mensaje.exito { background: var(--correcto); box-shadow: 0 0 0 4px var(--correcto), 0 6px 16px rgba(0, 0, 0, 0.35); }
 .mensaje.error { background: var(--incorrecto); box-shadow: 0 0 0 4px var(--incorrecto), 0 6px 16px rgba(0, 0, 0, 0.35); }
 
-/* Estadísticas: plaquitas de marquesina */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -220,7 +205,6 @@ a { color: var(--principal); }
   font-style: italic;
 }
 .carga-error { color: var(--incorrecto); }
-/* spinner con rayas de carpa */
 .spinner {
   width: 26px;
   height: 26px;
@@ -348,32 +332,27 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .recorte {
   position: absolute;
   transform: translateY(-50%) rotate(var(--giro));
-  /* cuatro sombras blancas sin desenfoque arman el borde de tijera, la última es la sombra real */
   filter:
     drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
     drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
     drop-shadow(4px 6px 4px rgba(20, 10, 0, 0.45));
 }
 .recorte svg { display: block; width: 100%; height: auto; }
-/* la barra y el contenido van por encima de los recortes */
 .barra, main { position: relative; z-index: 1; }
-/* si la pantalla es angosta no hay margen libre, así que no los muestro */
 @media (max-width: 1400px) {
   .recortes { display: none; }
 }
 
 /* ---------- Houdini en el inicio ---------- */
-/* solo el título y el globo le dejan lugar a la foto; lo de abajo ya usa todo el ancho */
 .con-houdini > h2, .houdini { margin-right: 220px; }
 .houdini {
   display: flex;
   align-items: center;
-  min-height: 190px; /* alto suficiente para que lo que sigue arranque debajo de la foto */
+  min-height: 190px;
   margin-top: 8px;
   margin-bottom: 20px;
 }
 .houdini-marco {
-  /* colgado de la esquina superior derecha del cartel, sobresaliendo del borde */
   position: absolute;
   top: -28px;
   right: -36px;
@@ -381,7 +360,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   width: 200px;
   margin: 0;
   padding: 10px;
-  /* marco dorado con relieve hecho con gradientes */
   background: linear-gradient(135deg, #f5d77a, #b8862a 40%, #f2cf6a 60%, #8a6a1c);
   border-radius: 3px;
   transform: rotate(4deg);
@@ -394,7 +372,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   aspect-ratio: 2 / 3;
   object-fit: cover;
   object-position: top;
-  /* tono sepia de foto vieja */
   filter: sepia(0.55) contrast(1.05);
   border: 2px solid #5e4510;
   background: #ecdcb8;
@@ -408,7 +385,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   letter-spacing: 1px;
   color: #2a1a05;
 }
-/* globito de historieta que sale hacia la foto */
 .globo {
   position: relative;
   margin: 0;
@@ -419,7 +395,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   box-shadow: 5px 5px 0 var(--principal);
 }
 .globo::before {
-  /* la colita del globo apuntando a Houdini: un triángulo hecho con bordes */
   content: "";
   position: absolute;
   right: -22px;
@@ -436,13 +411,11 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   color: var(--texto);
 }
 .globo cite { font-style: italic; color: var(--principal); font-weight: 700; }
-/* cada frase nueva aparece suave */
 .globo-texto { animation: aparecer 0.5s ease-out; }
 @keyframes aparecer {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
-/* en pantallas angostas no hay lugar en la esquina: la foto va arriba del globo */
 @media (max-width: 860px) {
   .con-houdini > h2, .houdini { margin-right: 0; }
   .houdini { display: block; min-height: 0; }
@@ -468,7 +441,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   text-align: center;
   color: #fdf3d8;
   background: var(--principal);
-  /* los cuatro mordiscos de las esquinas y los dos del medio: gradientes radiales transparentes usados como máscara */
   -webkit-mask:
     radial-gradient(circle 12px at 0 0, transparent 98%, #000) top left / 51% 51% no-repeat,
     radial-gradient(circle 12px at 100% 0, transparent 98%, #000) top right / 51% 51% no-repeat,
@@ -479,10 +451,8 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
     radial-gradient(circle 12px at 100% 0, transparent 98%, #000) top right / 51% 51% no-repeat,
     radial-gradient(circle 12px at 0 100%, transparent 98%, #000) bottom left / 51% 51% no-repeat,
     radial-gradient(circle 12px at 100% 100%, transparent 98%, #000) bottom right / 51% 51% no-repeat;
-  /* la máscara recorta las sombras, así que la sombra va con filter, que se aplica después */
   filter: drop-shadow(5px 6px 6px rgba(20, 10, 0, 0.45));
   transform: rotate(6deg);
-  /* línea punteada interior, como el troquel de la entrada */
   outline: 2px dashed rgba(232, 195, 90, 0.8);
   outline-offset: -8px;
 }
@@ -493,7 +463,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   text-transform: uppercase;
   color: var(--dorado);
 }
-/* el número es lo que importa: más grande y con las cifras del mismo ancho */
 .boleto-numero { margin-top: 4px; font-size: 0.95rem; letter-spacing: 4px; font-variant-numeric: tabular-nums; }
 .boleto strong { font-family: var(--fuente-sub); font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; }
 .boleto-titulo {
@@ -505,9 +474,7 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   paint-order: stroke fill;
   text-shadow: 2px 2px 0 var(--noche);
 }
-/* variante del menú: colgada abajo a la izquierda, lejos de Houdini */
 .boleto.abajo { top: auto; right: auto; bottom: -30px; left: -34px; transform: rotate(-6deg); }
-/* le deja lugar abajo para que el boleto no tape los porcentajes */
 .con-boleto-abajo { padding-bottom: 130px; }
 @media (max-width: 860px) {
   .boleto, .boleto.abajo { position: static; margin: 0 auto 16px; transform: rotate(-2deg); }
@@ -533,7 +500,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .puesto .puntos { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--principal); white-space: nowrap; }
 .puesto .puntos small { font-family: var(--fuente-sub); font-size: 0.8rem; margin-left: 4px; color: var(--suave); }
 
-/* el recorte (corona o medalla) va colgado de la esquina superior izquierda */
 .insignia {
   position: absolute;
   top: -22px;
@@ -546,7 +512,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
     drop-shadow(3px 4px 3px rgba(20, 10, 0, 0.4));
 }
 .insignia svg { display: block; width: 100%; height: auto; }
-/* los tres primeros se corren un poco a la derecha para dejar lugar al recorte */
 .puesto.oro, .puesto.plata, .puesto.bronce { padding-left: 46px; }
 .puesto.oro {
   border: 4px solid #d4a72c;
@@ -586,7 +551,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .reloj.aviso .reloj-gajo { fill: #e8b400; opacity: 0.55; }
 .reloj.urgente .reloj-gajo { fill: var(--incorrecto); opacity: 0.6; }
 .reloj.urgente .reloj-numero { fill: var(--incorrecto); }
-/* en los últimos segundos el reloj tiembla */
 .reloj.urgente { animation: temblar 0.5s ease-in-out infinite; }
 @keyframes temblar {
   0%, 100% { transform: rotate(0); }
@@ -594,7 +558,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   75% { transform: rotate(6deg); }
 }
 
-/* la pregunta es más larga que un título común, así que va un poco más chica */
 .partida h2 { font-size: 2.2rem; }
 @media (max-width: 560px) {
   .partida h2 { font-size: 1.5rem; -webkit-text-stroke-width: 2px; text-shadow: 2px 2px 0 var(--principal); }
@@ -602,7 +565,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .reloj { width: 88px; }
 }
 
-/* bordes de la pantalla: amarillo cuando queda poco, rojo latiendo cuando se acaba */
 .pantalla.partida { transition: border-color 0.3s, box-shadow 0.3s; }
 .pantalla.tiempo-aviso {
   border-color: #e8b400;
@@ -636,7 +598,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   letter-spacing: 1px;
   color: var(--suave);
 }
-/* grilla que reparte los botones en todo el ancho; auto-fit pone tantas columnas como entren */
 .selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .selector button {
   padding: 18px 12px;
@@ -647,7 +608,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   font-size: 1.05rem;
 }
 .selector button:hover:not(:disabled) { background: #f3e4bf; border-color: var(--dorado); }
-/* el elegido queda como entrada roja de función */
 .selector button[aria-pressed="true"] {
   background: var(--principal);
   color: #fdf3d8;
@@ -665,7 +625,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   box-shadow: 5px 5px 0 var(--noche);
 }
 
-/* porcentajes por categoría: nombre | barra | número */
 .porcentajes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .porcentajes li { display: grid; grid-template-columns: 140px 1fr 100px; align-items: center; gap: 14px; }
 .porcentajes .nombre { font-family: var(--fuente-sub); font-weight: 700; letter-spacing: 1px; }
@@ -679,7 +638,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .barra-porcentaje span {
   display: block;
   height: 100%;
-  /* rayas de carpa adentro de la barra */
   background: repeating-linear-gradient(45deg, var(--principal) 0 10px, #c0392b 10px 20px);
   transition: width 0.6s ease-out;
 }
@@ -714,7 +672,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .recorte-404.esposas { width: 120px; transform: rotate(-15deg); }
 .recorte-404.candado { width: 80px; transform: rotate(12deg); }
 .globo-404 { max-width: 520px; margin: 0 auto 24px; font-size: 1.15rem; font-style: italic; color: var(--suave); }
-/* un link con pinta de botón: mismo look que los botones rojos */
 .boton-link {
   display: inline-block;
   padding: 12px 26px;
@@ -739,7 +696,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 /* ---------- Barra de abajo (celular) ---------- */
 .nav-inferior { display: none; }
 @media (max-width: 700px) {
-  /* arriba quedan solo el título, el nombre y cerrar sesión */
   .nav .link-arriba { display: none; }
   .barra h1 { font-size: 1.5rem; }
   .nav-inferior {
@@ -752,7 +708,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
     background: var(--noche);
     border-top: 4px double var(--dorado);
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.35);
-    /* deja libre la rayita de inicio de los iPhone */
     padding-bottom: env(safe-area-inset-bottom);
   }
   .nav-inferior a {
@@ -770,9 +725,7 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
     letter-spacing: 1px;
   }
   .nav-inferior svg { width: 26px; height: 26px; }
-  /* el activo se pinta de dorado con una marca roja arriba, como una entrada elegida */
   .nav-inferior a.active { color: var(--dorado); box-shadow: inset 0 3px 0 var(--principal); background: rgba(255, 255, 255, 0.04); }
-  /* lugar abajo para que la barra fija no tape el final del contenido */
   main { padding-bottom: 84px; }
 }
 
@@ -787,10 +740,8 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   font-size: 0.8rem;
 }
 .pestanas button[aria-pressed="true"] { background: var(--principal); color: #fdf3d8; box-shadow: 3px 3px 0 var(--noche); }
-/* si arriba hay un rótulo, la pestaña va pegada a él */
 .rotulo + .pestanas { margin-top: 6px; }
 
-/* estado de la partida como sello de tinta */
 .sello {
   display: inline-block;
   padding: 2px 10px;
@@ -806,8 +757,7 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 .sello.completada { color: var(--correcto); }
 .sello.abandonada { color: var(--incorrecto); }
 
-/* ---------- Celular: todo más compacto ----------
-   Va al final para pisar los tamaños de arriba (en CSS, a igual especificidad gana la última regla). */
+/* ---------- Celular ---------- */
 @media (max-width: 560px) {
   body { font-size: 0.95rem; }
   main { margin-top: 16px; padding-left: 10px; padding-right: 10px; }
@@ -815,7 +765,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   h2 { font-size: 1.7rem; -webkit-text-stroke-width: 3px; text-shadow: 3px 3px 0 var(--principal); }
   h3 { font-size: 1.05rem; margin: 20px 0 8px; }
 
-  /* entrada y Houdini más chicos */
   .boleto, .boleto.abajo { width: 190px; padding: 8px 22px; margin-bottom: 12px; }
   .boleto-titulo { font-size: 1rem; }
   .boleto strong { font-size: 0.75rem; }
@@ -826,24 +775,20 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .globo p { font-size: 1rem; }
   .globo cite { font-size: 0.85rem; }
 
-  /* estadísticas: tres por fila y números más chicos */
   .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .stats div { padding: 8px; }
   .stats dt { font-size: 0.62rem; letter-spacing: 0; }
   .stats dd { font-size: 1.2rem; }
 
-  /* armar partida: categorías de a dos */
   .selector { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .selector button { padding: 12px 6px; font-size: 0.8rem; letter-spacing: 1px; }
   .boton-jugar { padding: 12px; font-size: 1.25rem; }
   .porcentajes li { gap: 4px 10px; }
   .porcentajes .nombre { font-size: 0.85rem; }
 
-  /* pestañas del ranking y el historial */
   .pestanas { gap: 6px; }
   .pestanas button { padding: 5px 9px; font-size: 0.68rem; letter-spacing: 1px; }
 
-  /* tarjetas del ranking más bajas */
   .ranking { gap: 12px; }
   .puesto { padding: 10px 12px; gap: 4px 10px; flex-wrap: nowrap; }
   .puesto.oro, .puesto.plata, .puesto.bronce { padding-left: 30px; }
@@ -856,7 +801,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
 
   .vacio { font-size: 0.9rem; }
 
-  /* historial: la tabla se vuelve una tarjeta por partida, así no hace falta scroll de costado */
   .tabla-scroll { overflow-x: visible; }
   .tabla-historial thead { display: none; }
   .tabla-historial, .tabla-historial tbody, .tabla-historial tr, .tabla-historial td { display: block; }
@@ -875,7 +819,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
     border-bottom: 1px dotted var(--borde);
   }
   .tabla-historial td:last-child { border-bottom: none; }
-  /* attr() lee el data-label de la celda y lo escribe a la izquierda */
   .tabla-historial td::before {
     content: attr(data-label);
     font-family: var(--fuente-sub);
@@ -887,10 +830,9 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .tabla-historial tbody tr:nth-child(even) { background: #f6ead0; }
 }
 
-/* respetamos a quien pidió menos movimiento en el sistema */
+/* ---------- Menos movimiento ---------- */
 @media (prefers-reduced-motion: reduce) {
   .spinner { animation-duration: 3s; }
-  /* sin temblor ni latido: el aviso queda solo con el color */
   .reloj.urgente, .pantalla.tiempo-urgente { animation: none; }
   .reloj-aguja { transition: none; }
   .globo-texto { animation: none; }

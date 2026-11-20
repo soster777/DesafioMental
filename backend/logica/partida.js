@@ -2,15 +2,15 @@ import crypto from "node:crypto";
 
 export const SEGUNDOS_POR_PREGUNTA = 15;
 
-// [Pregunta] -> [String]
-// categoría especial: no la tiene ninguna pregunta, junta preguntas de todas
+// no es una categoría de preguntas: junta todas
 export const MEZCLADAS = "Mezcladas";
 
-// [Pregunta] -> [String] con las categorías para jugar: las reales más "Mezcladas"
+// [Pregunta] -> [String]
 export function categoriasParaJugar(banco) {
     return [...categoriasDe(banco), MEZCLADAS];
 }
 
+// [Pregunta] -> [String]
 export function categoriasDe(banco) {
     return banco.reduce((categorias, pregunta) => {
         if (categorias.includes(pregunta.categoria)) {
@@ -34,7 +34,6 @@ function mezclar(lista) {
 
 // [Pregunta] -> String -> Number -> [Pregunta]
 export function elegirPreguntas(banco, categoria, cantidad) {
-    // en "Mezcladas" entra todo el banco; si no, solo las de esa categoría
     const disponibles = categoria === MEZCLADAS ? banco : banco.filter((pregunta) => pregunta.categoria === categoria);
     if (disponibles.length < cantidad) {
         return null;

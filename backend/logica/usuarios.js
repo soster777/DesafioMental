@@ -90,8 +90,7 @@ export function datosPublicos(usuario) {
     return { id: usuario.id, usuario: usuario.usuario, email: usuario.email, rol: usuario.rol };
 }
 
-// [Usuario] -> [Usuario]: a los usuarios guardados antes de tener id les pone uno.
-// Si tenían el viejo "numero" lo usan como id; si no, el orden de registro.
+// [Usuario] -> [Usuario]
 export function completarIds(usuarios) {
     return usuarios.map((u, indice) => {
         if (u.id) {

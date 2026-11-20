@@ -1,6 +1,3 @@
-// Íconos de la barra de abajo (celular). Usan currentColor: toman el color del texto,
-// así el que está activo se pinta solo con el CSS del link.
-
 export function IconoCarpa() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">

@@ -141,8 +141,7 @@ function calcularPorcentaje(aciertos) {
 // [Partida] -> String -> Number
 export function porcentajePorCategoria(partidas, categoria) {
     if (categoria === MEZCLADAS) {
-        // en una partida mezclada cada respuesta queda con la categoría de su pregunta,
-        // así que acá filtro por partida y cuento todas sus respuestas
+        // las respuestas de una partida mezclada guardan la categoría de su pregunta
         const calcularMezcladas = compositeAll([calcularPorcentaje, aAciertos, todasLasRespuestas]);
         return calcularMezcladas(partidas.filter((partida) => partida.categoria === MEZCLADAS));
     }

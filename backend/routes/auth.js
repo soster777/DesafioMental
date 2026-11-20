@@ -35,7 +35,6 @@ router.post("/registro", (req, res) => {
     }
 
     const nuevo = {
-        // misma cuenta que para las preguntas: el id más alto + 1, así nunca se repite
         id: siguienteId(usuarios),
         usuario: datos.usuario,
         email: datos.email,

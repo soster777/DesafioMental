@@ -12,7 +12,6 @@ export default function Barra() {
     navigate("/login");
   }
 
-  // los mismos links sirven para la barra de arriba (compu) y la de abajo (celular)
   const links = [
     { a: "/menu", texto: "Menú", Icono: IconoCarpa },
     { a: "/historial", texto: "Historial", Icono: IconoPergamino },
@@ -43,7 +42,6 @@ export default function Barra() {
         )}
       </header>
 
-      {/* en el celular los links bajan a una barra fija abajo, con íconos (el CSS decide cuál se ve) */}
       {usuario && (
         <nav className="nav-inferior" aria-label="Secciones">
           {links.map(({ a, texto, Icono }) => (

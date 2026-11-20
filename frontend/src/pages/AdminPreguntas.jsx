@@ -18,7 +18,6 @@ export default function AdminPreguntas() {
   const [enviando, setEnviando] = useState(false);
 
   const lista = preguntas.datos || [];
-  // categorías sin repetir: me quedo con cada una solo la primera vez que aparece
   const todas = lista.map((p) => p.categoria);
   const categorias = todas.filter((c, i) => todas.indexOf(c) === i);
 

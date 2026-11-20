@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Candado, Esposas } from "../components/Recortes.jsx";
 
-// Se muestra para cualquier ruta que no existe (path="*" en App.jsx).
 export default function NoEncontrada() {
   return (
     <section className="pantalla no-encontrada">
