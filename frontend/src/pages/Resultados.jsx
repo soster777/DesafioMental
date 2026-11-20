@@ -5,8 +5,7 @@ import { useApp } from "../context/AppContext.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
-import Datos from "../components/Datos.jsx";
-import Categoria from "../components/Categoria.jsx";
+import Categoria, { colorDeCategoria } from "../components/Categoria.jsx";
 import { formatearDuracion, formatearFecha, porcentajeDePartida, mensajeSegunPorcentaje } from "../utils/formato.js";
 
 export default function Resultados() {
@@ -40,21 +39,34 @@ export default function Resultados() {
   const porcentaje = porcentajeDePartida(partida);
 
   return (
-    <section className="pantalla">
+    <section className="pantalla resultados">
       <h2>Resultados</h2>
-      <p className="destacado">{mensajeSegunPorcentaje(porcentaje)}</p>
-      <Datos
-        datos={[
-          ["Puntaje total", partida.puntaje],
-          ["Correctas", partida.correctas],
-          ["Incorrectas", partida.incorrectas],
-          ["Aciertos", porcentaje + "%"],
-          ["Mejor racha", partida.mejorRacha],
-          ["Duración", formatearDuracion(partida.duracion)],
-          ["Categoría", <Categoria nombre={partida.categoria} />],
-          ["Finalizó", formatearFecha(partida.fin)],
-        ]}
-      />
+
+      <div className="resultado-cabecera">
+        <span
+          className="circulo-aciertos"
+          style={{ "--valor": porcentaje * 3.6 + "deg", "--color-categoria": colorDeCategoria(partida.categoria).borde }}
+        >
+          {porcentaje}%
+        </span>
+        <div>
+          <p className="resultado-puntaje">
+            <strong>{partida.puntaje}</strong> puntos
+          </p>
+          <p className="destacado">{mensajeSegunPorcentaje(porcentaje)}</p>
+          <p className="resultado-meta">
+            <Categoria nombre={partida.categoria} /> {formatearFecha(partida.fin)}
+          </p>
+        </div>
+      </div>
+
+      <ul className="fichas">
+        <li><strong>{partida.correctas}</strong><span>Correctas</span></li>
+        <li><strong>{partida.incorrectas}</strong><span>Incorrectas</span></li>
+        <li><strong>{partida.mejorRacha}</strong><span>Mejor racha</span></li>
+        <li><strong>{formatearDuracion(partida.duracion)}</strong><span>Duración</span></li>
+      </ul>
+
       <nav className="acciones">
         <button type="button" onClick={nuevaPartida} disabled={creando}>
           Nueva partida

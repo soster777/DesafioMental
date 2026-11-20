@@ -175,22 +175,6 @@ a { color: var(--principal); }
 .mensaje.exito { background: var(--correcto); box-shadow: 0 0 0 4px var(--correcto), 0 6px 16px rgba(0, 0, 0, 0.35); }
 .mensaje.error { background: var(--incorrecto); box-shadow: 0 0 0 4px var(--incorrecto), 0 6px 16px rgba(0, 0, 0, 0.35); }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin: 0;
-}
-.stats div {
-  background: var(--noche);
-  color: #fdf3d8;
-  border: 2px solid var(--dorado);
-  border-radius: var(--radio);
-  padding: 12px;
-}
-.stats dt { font-family: var(--fuente-sub); font-size: 0.78rem; letter-spacing: 1px; color: var(--dorado); }
-.stats dd { margin: 0; font-family: var(--fuente-titulo); font-size: 1.6rem; }
-
 .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 
 /* Carga asincrónica */
@@ -319,7 +303,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   letter-spacing: 1px;
   white-space: nowrap;
 }
-.stats dd .categoria { font-size: 0.9rem; }
 .categoria + h2 { margin-top: 10px; }
 
 /* ---------- Recortes decorativos en los márgenes ---------- */
@@ -957,11 +940,6 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .escenario .globo p { font-size: 0.88rem; margin-bottom: 6px; }
   .escenario .globo cite { font-size: 0.75rem; }
 
-  .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stats div { padding: 8px; }
-  .stats dt { font-size: 0.62rem; letter-spacing: 0; }
-  .stats dd { font-size: 1.2rem; }
-
   .selector { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .selector button { padding: 12px 6px; font-size: 0.8rem; letter-spacing: 1px; }
   .boton-jugar { padding: 12px; font-size: 1.25rem; }
@@ -1078,4 +1056,31 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .panel-numeros strong { font-size: 1.3rem; }
   .panel-numeros span { font-size: 0.7rem; }
   .panel-probar { max-width: none; }
+}
+
+/* ---------- Resultados ---------- */
+.resultado-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 22px;
+}
+.resultados .circulo-aciertos { flex-shrink: 0; width: 130px; height: 130px; font-size: 1.8rem; }
+.resultado-cabecera p { margin: 0; }
+.resultado-puntaje { font-family: var(--fuente-sub); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--suave); }
+.resultado-puntaje strong { font-family: var(--fuente-titulo); font-weight: 400; font-size: 2.6rem; line-height: 1; letter-spacing: 0; color: var(--texto); }
+.resultados .destacado { font-size: 1.3rem; margin: 4px 0 8px; }
+.resultado-meta { font-size: 0.85rem; color: var(--suave); }
+.resultado-meta .categoria { margin-right: 6px; }
+.resultados .fichas strong { white-space: nowrap; }
+.resultados .acciones { justify-content: center; }
+@media (max-width: 860px) {
+  .resultados .fichas li { flex: 0 0 50%; }
+}
+@media (max-width: 560px) {
+  .resultado-cabecera { flex-direction: column; gap: 12px; text-align: center; }
+  .resultados .circulo-aciertos { width: 100px; height: 100px; font-size: 1.4rem; }
+  .resultado-puntaje strong { font-size: 2rem; }
+  .resultados .destacado { font-size: 1.05rem; }
 }
