@@ -7,7 +7,7 @@ Juego de preguntas y respuestas. Es la versión del primer parcial rehecha con:
 
 ## Requisitos
 
-- Node.js 20.11 o más nuevo (`node -v` para ver la versión).
+- Node.js 20.19 o más nuevo (`node -v` para ver la versión).
 
 ## Instalación
 
@@ -52,7 +52,10 @@ Después se abre http://localhost:5173 en el navegador. Vite reenvía todo lo qu
 Cada usuario tiene un id (1, 2, 3... por orden de registro) que se ve como número de socio en la entrada del menú.
 
 - **usuario**: se crea desde el registro público. Juega y ve sus estadísticas, el historial y el ranking.
-- **admin**: además gestiona el banco de preguntas desde "Preguntas" (alta, edición y baja).
+- **admin**: entra a un panel propio en lugar del menú de juego.
+  - Gestiona el banco de preguntas desde "Preguntas" (alta, edición y baja).
+  - Gestiona las cuentas desde "Usuarios" (cambio de rol y baja). No puede modificar su propia cuenta, así no se queda sin acceso.
+  - Puede probar partidas, pero no cuentan para el ranking ni las estadísticas del panel, y no tiene historial.
 
 ## API REST
 
@@ -76,6 +79,19 @@ Todas las rutas, salvo registro y login, piden el encabezado `Authorization: Bea
 | GET | `/api/partidas?categoria=&estado=` | logueado | Historial con filtros y resumen |
 | GET | `/api/estadisticas` | logueado | Estadísticas personales |
 | GET | `/api/estadisticas/:categoria` | logueado | % de aciertos en una categoría |
-| GET | `/api/ranking?categoria=` | logueado | Top 10 de partidas completadas; sin `categoria` es el ranking general |
+| GET | `/api/ranking?categoria=` | logueado | Top 10 de partidas completadas de usuarios (sin las de admins); sin `categoria` es el ranking general |
+| GET | `/api/usuarios` | admin | Lista de usuarios con sus partidas completadas |
+| PUT | `/api/usuarios/:id/rol` | admin | Cambia el rol `{ rol }` con "usuario" o "admin". Rol inválido o cuenta propia: 400 |
+| DELETE | `/api/usuarios/:id` | admin | Baja del usuario con sus partidas y sesiones (204). Cuenta propia: 400 |
 
 Sin sesión: 401. Sin permiso (rol o partida de otro): 403. Recurso inexistente: 404. Partida ya terminada: 409.
+
+## Publicarlo en Render
+
+El backend también sirve el frontend compilado (`frontend/dist`), así que alcanza con un solo Web Service:
+
+- Build Command: `npm install --prefix backend && npm install --prefix frontend --include=dev && npm run build --prefix frontend`
+- Start Command: `npm start --prefix backend`
+- Variable de entorno: `NODE_VERSION=22`
+
+El repositorio incluye `render.yaml` con esta misma configuración. En el plan gratis el disco no es persistente: cada reinicio vuelve a los datos iniciales.
