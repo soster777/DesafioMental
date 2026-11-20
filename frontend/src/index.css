@@ -682,6 +682,52 @@ tbody tr:nth-child(even) { background: rgba(200, 160, 58, 0.08); }
   .barra-porcentaje { grid-column: 1 / -1; grid-row: 2; }
 }
 
+/* ---------- Página 404 ---------- */
+.no-encontrada { text-align: center; }
+.no-encontrada h2::before { content: none; }
+.no-encontrada-dibujos { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 8px; }
+.numero-404 {
+  font-family: var(--fuente-titulo);
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--principal);
+  -webkit-text-stroke: 4px #111;
+  paint-order: stroke fill;
+  text-shadow: 6px 6px 0 var(--dorado);
+}
+.recorte-404 {
+  display: block;
+  filter:
+    drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
+    drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
+    drop-shadow(4px 6px 4px rgba(20, 10, 0, 0.45));
+}
+.recorte-404 svg { display: block; width: 100%; height: auto; }
+.recorte-404.esposas { width: 120px; transform: rotate(-15deg); }
+.recorte-404.candado { width: 80px; transform: rotate(12deg); }
+.globo-404 { max-width: 520px; margin: 0 auto 24px; font-size: 1.15rem; font-style: italic; color: var(--suave); }
+/* un link con pinta de botón: mismo look que los botones rojos */
+.boton-link {
+  display: inline-block;
+  padding: 12px 26px;
+  border: 2px solid var(--dorado);
+  border-radius: var(--radio);
+  background: var(--principal);
+  color: #fdf3d8;
+  font-family: var(--fuente-sub);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--noche);
+}
+.boton-link:hover { background: var(--principal-oscuro); }
+@media (max-width: 560px) {
+  .numero-404 { font-size: 4.5rem; }
+  .recorte-404.esposas { width: 80px; }
+  .recorte-404.candado { width: 56px; }
+}
+
 /* ---------- Pestañas del ranking ---------- */
 .pestanas { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
 .pestanas button {
