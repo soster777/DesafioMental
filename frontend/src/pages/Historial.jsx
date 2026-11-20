@@ -53,7 +53,8 @@ export default function Historial() {
       )}
       {historial.datos && !historial.cargando && historial.datos.partidas.length > 0 && (
         <div className="tabla-scroll">
-          <table>
+          {/* data-label repite el título de la columna en cada celda: en el celular la tabla se arma como tarjetas y lo muestra al lado del dato */}
+          <table className="tabla-historial">
             <thead>
               <tr>
                 <th>Fecha</th>
@@ -66,11 +67,11 @@ export default function Historial() {
             <tbody>
               {historial.datos.partidas.map((partida) => (
                 <tr key={partida.id}>
-                  <td>{formatearFecha(partida.fin)}</td>
-                  <td><Categoria nombre={partida.categoria} /></td>
-                  <td>{partida.puntaje}</td>
-                  <td>{partida.correctas}</td>
-                  <td><span className={"sello " + partida.estado}>{partida.estado}</span></td>
+                  <td data-label="Fecha">{formatearFecha(partida.fin)}</td>
+                  <td data-label="Categoría"><Categoria nombre={partida.categoria} /></td>
+                  <td data-label="Puntaje">{partida.puntaje}</td>
+                  <td data-label="Correctas">{partida.correctas}</td>
+                  <td data-label="Estado"><span className={"sello " + partida.estado}>{partida.estado}</span></td>
                 </tr>
               ))}
             </tbody>
