@@ -52,7 +52,38 @@ export async function iniciarSesion(cuerpo) {
     return { token: token, usuario: datosPublicos(usuario) };
 }
 
+// el front manda el token en el encabezado: Authorization: Bearer <token>
+// String -> String
+function obtenerToken(autorizacion) {
+    return (autorizacion || "").replace("Bearer ", "");
+}
+
+// String -> Usuario
+export async function obtenerUsuarioDeSesion(autorizacion) {
+    const nombre = await sesionesData.obtenerUsuario(obtenerToken(autorizacion));
+    const usuario = nombre === undefined ? undefined : await usuariosData.obtenerPorNombre(nombre);
+    if (usuario === undefined) {
+        throw crearError(401, "Tenés que iniciar sesión.");
+    }
+    return usuario;
+}
+
+// String -> Usuario
+export async function obtenerAdminDeSesion(autorizacion) {
+    const usuario = await obtenerUsuarioDeSesion(autorizacion);
+    if (usuario.rol !== "admin") {
+        throw crearError(403, "No tenés permiso para esta operación.");
+    }
+    return usuario;
+}
+
+// String -> Usuario
+export async function obtenerSesion(autorizacion) {
+    return datosPublicos(await obtenerUsuarioDeSesion(autorizacion));
+}
+
 // String -> undefined
-export async function cerrarSesion(token) {
-    await sesionesData.eliminar(token);
+export async function cerrarSesion(autorizacion) {
+    await obtenerUsuarioDeSesion(autorizacion);
+    await sesionesData.eliminar(obtenerToken(autorizacion));
 }

@@ -34,7 +34,7 @@ app.use((req, res) => {
     res.status(404).json({ error: "No existe la ruta " + req.method + " " + req.originalUrl + "." });
 });
 
-// Express reconoce el middleware de errores porque tiene 4 parámetros
+// manejador de errores: Express lo reconoce porque tiene 4 parámetros
 app.use((err, req, res, next) => {
     if (err.type === "entity.parse.failed") {
         return res.status(400).json({ error: "El cuerpo de la petición no es un JSON válido." });

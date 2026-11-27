@@ -73,10 +73,9 @@ Después se abre http://localhost:5173 en el navegador. Vite redirige las petici
 backend/
   index.js          inicia el servidor y conecta las rutas
   data/             repository: lee y guarda los JSON, un archivo por entidad (usuarios, preguntas, partidas, sesiones)
-  services/         lógica del negocio: validan, aplican las reglas y avisan los errores con su código HTTP
+  services/         lógica del negocio: validan, aplican las reglas (también la sesión y el rol) y avisan los errores con su código HTTP
   controllers/      reciben el pedido, llaman al service y arman la respuesta HTTP
   routes/           endpoints de la API: cada ruta apunta a la función de su controller
-  middlewares/      control de sesión y de rol de administrador
   logica/           reglas del juego, validaciones, estadísticas y ranking
 frontend/src/
   pages/            una pantalla por cada ruta

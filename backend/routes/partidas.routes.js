@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { requiereSesion } from "../middlewares/sesion.js";
 import {
     listarHistorial,
     empezarPartida,
@@ -9,8 +8,6 @@ import {
 } from "../controllers/partidas.controllers.js";
 
 const router = Router();
-
-router.use(requiereSesion);
 
 // GET /api/partidas?categoria=Historia&estado=completada
 router.get("/", listarHistorial);

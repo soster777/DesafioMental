@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { requiereSesion, soloAdmin } from "../middlewares/sesion.js";
 import {
     listarCategorias,
     listarPreguntas,
@@ -10,21 +9,19 @@ import {
 
 const router = Router();
 
-router.use(requiereSesion);
-
-// GET /api/preguntas/categorias (cualquier usuario las necesita para jugar)
+// GET /api/preguntas/categorias
 router.get("/categorias", listarCategorias);
 
 // GET /api/preguntas
-router.get("/", soloAdmin, listarPreguntas);
+router.get("/", listarPreguntas);
 
 // POST /api/preguntas
-router.post("/", soloAdmin, registrarPregunta);
+router.post("/", registrarPregunta);
 
 // PUT /api/preguntas/:id
-router.put("/:id", soloAdmin, modificarPregunta);
+router.put("/:id", modificarPregunta);
 
 // DELETE /api/preguntas/:id
-router.delete("/:id", soloAdmin, borrarPregunta);
+router.delete("/:id", borrarPregunta);
 
 export default router;

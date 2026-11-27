@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { requiereSesion } from "../middlewares/sesion.js";
 import { registrar, login, obtenerSesion, logout } from "../controllers/auth.controllers.js";
 
 const router = Router();
@@ -11,9 +10,9 @@ router.post("/registro", registrar);
 router.post("/login", login);
 
 // GET /api/auth/yo
-router.get("/yo", requiereSesion, obtenerSesion);
+router.get("/yo", obtenerSesion);
 
 // POST /api/auth/logout
-router.post("/logout", requiereSesion, logout);
+router.post("/logout", logout);
 
 export default router;
