@@ -1,11 +1,11 @@
 import express from "express";
 import path from "node:path";
 import { inicializarDatos } from "./data/inicializar.js";
-import authRoutes from "./routes/auth.js";
-import preguntasRoutes from "./routes/preguntas.js";
-import partidasRoutes from "./routes/partidas.js";
-import estadisticasRoutes from "./routes/estadisticas.js";
-import usuariosRoutes from "./routes/usuarios.js";
+import authRoutes from "./routes/auth.routes.js";
+import preguntasRoutes from "./routes/preguntas.routes.js";
+import partidasRoutes from "./routes/partidas.routes.js";
+import estadisticasRoutes from "./routes/estadisticas.routes.js";
+import usuariosRoutes from "./routes/usuarios.routes.js";
 
 const PUERTO = process.env.PORT || 3000;
 const app = express();

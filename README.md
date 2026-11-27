@@ -74,7 +74,8 @@ backend/
   index.js          inicia el servidor y conecta las rutas
   data/             repository: lee y guarda los JSON, un archivo por entidad (usuarios, preguntas, partidas, sesiones)
   services/         lógica del negocio: validan, aplican las reglas y avisan los errores con su código HTTP
-  routes/           endpoints de la API (auth, preguntas, partidas, estadisticas, usuarios)
+  controllers/      reciben el pedido, llaman al service y arman la respuesta HTTP
+  routes/           endpoints de la API: cada ruta apunta a la función de su controller
   middlewares/      control de sesión y de rol de administrador
   logica/           reglas del juego, validaciones, estadísticas y ranking
 frontend/src/
