@@ -11,7 +11,7 @@
 Desafío Mental es un juego de preguntas y respuestas. En este parcial rehice la versión del primer parcial separándola en dos proyectos:
 
 - `frontend/`: la interfaz, hecha con React y React Router (con Vite).
-- `backend/`: un servidor con Node.js y Express que expone una API REST. Los datos se guardan en archivos JSON dentro de `backend/datos/`.
+- `backend/`: un servidor con Node.js y Express que expone una API REST. Los datos se guardan en archivos JSON dentro de `backend/data/`.
 
 Además de lo que ya tenía el primer parcial, agregué:
 
@@ -62,17 +62,17 @@ Después se abre http://localhost:5173 en el navegador. Vite redirige las petici
 ## Configuración
 
 - El backend usa el puerto 3000. Se puede cambiar con `PORT=4000 npm start`, pero en ese caso también hay que cambiar el proxy en `frontend/vite.config.js`.
-- La primera vez que se ejecuta, el backend crea la carpeta `backend/datos/` con las preguntas iniciales y un usuario administrador:
+- La primera vez que se ejecuta, el backend crea los archivos JSON en `backend/data/` con las preguntas iniciales y un usuario administrador:
   - Usuario: `admin`
   - Contraseña: `admin1234`
-- Para volver a los datos iniciales, se detiene el backend, se borra la carpeta `backend/datos/` y se vuelve a iniciar.
+- Para volver a los datos iniciales, se detiene el backend, se borran los archivos `.json` de `backend/data/` y se vuelve a iniciar.
 
 ## Estructura del proyecto
 
 ```
 backend/
   index.js          inicia el servidor y conecta las rutas
-  datos.js          lectura y escritura de los archivos JSON
+  data/             repository: lee y guarda los JSON, un archivo por entidad (usuarios, preguntas, partidas, sesiones)
   routes/           endpoints de la API (auth, preguntas, partidas, estadisticas, usuarios)
   middlewares/      control de sesión y de rol de administrador
   logica/           reglas del juego, validaciones, estadísticas y ranking

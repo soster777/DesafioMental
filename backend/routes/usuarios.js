@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { leer, guardar } from "../datos.js";
+import * as usuariosData from "../data/usuarios.js";
+import * as partidasData from "../data/partidas.js";
+import * as sesionesData from "../data/sesiones.js";
 import { requiereSesion, soloAdmin } from "../middlewares/sesion.js";
 import { datosPublicos } from "../logica/usuarios.js";
 
@@ -9,9 +11,9 @@ const router = Router();
 
 router.use(requiereSesion, soloAdmin);
 
-router.get("/", (req, res) => {
-    const partidas = leer("partidas");
-    const usuarios = leer("usuarios").map((u) => ({
+router.get("/", async (req, res) => {
+    const partidas = await partidasData.obtenerTodas();
+    const usuarios = (await usuariosData.obtenerTodos()).map((u) => ({
         ...datosPublicos(u),
         // las del admin son de prueba, no cuentan
         partidas: u.rol === "admin" ? null : partidas.filter((p) => p.usuario === u.usuario && p.estado === "completada").length,
@@ -20,9 +22,9 @@ router.get("/", (req, res) => {
 });
 
 // Request -> Response -> Usuario | undefined
-function buscarOtro(req, res) {
+async function buscarOtro(req, res) {
     const id = Number(req.params.id);
-    const usuario = leer("usuarios").find((u) => u.id === id);
+    const usuario = await usuariosData.obtenerPorId(id);
     if (usuario === undefined) {
         res.status(404).json({ error: "No existe el usuario " + req.params.id + "." });
         return undefined;
@@ -35,28 +37,23 @@ function buscarOtro(req, res) {
     return usuario;
 }
 
-router.put("/:id/rol", (req, res) => {
-    const usuario = buscarOtro(req, res);
+router.put("/:id/rol", async (req, res) => {
+    const usuario = await buscarOtro(req, res);
     if (usuario === undefined) return;
     const rol = (req.body || {}).rol;
     if (!ROLES.includes(rol)) {
         return res.status(400).json({ error: "El rol tiene que ser usuario o admin." });
     }
-    const actualizado = { ...usuario, rol: rol };
-    guardar("usuarios", leer("usuarios").map((u) => (u.id === usuario.id ? actualizado : u)));
+    const actualizado = await usuariosData.actualizar(usuario.id, { rol: rol });
     res.json(datosPublicos(actualizado));
 });
 
-router.delete("/:id", (req, res) => {
-    const usuario = buscarOtro(req, res);
+router.delete("/:id", async (req, res) => {
+    const usuario = await buscarOtro(req, res);
     if (usuario === undefined) return;
-    guardar("usuarios", leer("usuarios").filter((u) => u.id !== usuario.id));
-    guardar("partidas", leer("partidas").filter((p) => p.usuario !== usuario.usuario));
-    const sesiones = leer("sesiones");
-    for (const token in sesiones) {
-        if (sesiones[token] === usuario.usuario) delete sesiones[token];
-    }
-    guardar("sesiones", sesiones);
+    await usuariosData.eliminar(usuario.id);
+    await partidasData.eliminarDelUsuario(usuario.usuario);
+    await sesionesData.eliminarDelUsuario(usuario.usuario);
     res.status(204).end();
 });
 

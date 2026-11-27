@@ -38,8 +38,3 @@ export function validarPregunta(datos) {
         pregunta: { categoria: categoria, enunciado: enunciado, opciones: opciones, correcta: correcta, puntos: puntos },
     };
 }
-
-// [Pregunta] -> Number
-export function siguienteId(preguntas) {
-    return preguntas.reduce((mayor, pregunta) => Math.max(mayor, pregunta.id), 0) + 1;
-}

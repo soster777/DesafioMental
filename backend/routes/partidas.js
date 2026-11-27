@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { leer, guardar } from "../datos.js";
+import * as partidasData from "../data/partidas.js";
+import * as preguntasData from "../data/preguntas.js";
 import { requiereSesion } from "../middlewares/sesion.js";
 import { comoTexto } from "../logica/usuarios.js";
 import {
@@ -14,7 +15,7 @@ import {
     finalizarPartida,
     paraElCliente,
 } from "../logica/partida.js";
-import { partidasDelUsuario, soloFinalizadas, filtrarHistorial, resumirHistorial } from "../logica/estadisticas.js";
+import { soloFinalizadas, filtrarHistorial, resumirHistorial } from "../logica/estadisticas.js";
 
 // margen para los 2 segundos que el front muestra la respuesta y la demora de la red
 const LIMITE_POR_PREGUNTA = (SEGUNDOS_POR_PREGUNTA + 5) * 1000;
@@ -25,8 +26,8 @@ const router = Router();
 router.use(requiereSesion);
 
 // Request -> Response -> Partida
-function buscarPartida(req, res) {
-    const partida = leer("partidas").find((p) => p.id === req.params.id);
+async function buscarPartida(req, res) {
+    const partida = await partidasData.obtenerPorId(req.params.id);
     if (partida === undefined) {
         res.status(404).json({ error: "No existe la partida." });
         return null;
@@ -38,19 +39,14 @@ function buscarPartida(req, res) {
     return partida;
 }
 
-// Partida -> undefined
-function guardarPartida(partida) {
-    guardar("partidas", leer("partidas").map((p) => (p.id === partida.id ? partida : p)));
-}
-
 // historial con filtros: GET /api/partidas?categoria=Historia&estado=completada
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
     const categoria = comoTexto(req.query.categoria) || "todas";
     const estado = comoTexto(req.query.estado) || "todas";
     if (!ESTADOS.includes(estado)) {
         return res.status(400).json({ error: "El estado tiene que ser todas, completada o abandonada." });
     }
-    const mias = soloFinalizadas(partidasDelUsuario(leer("partidas"), req.usuario.usuario));
+    const mias = soloFinalizadas(await partidasData.obtenerDelUsuario(req.usuario.usuario));
     const filtradas = filtrarHistorial(mias, categoria, estado).map((p) => ({
         id: p.id,
         categoria: p.categoria,
@@ -62,14 +58,14 @@ router.get("/", (req, res) => {
     res.json({ partidas: filtradas, resumen: resumirHistorial(mias) });
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const cuerpo = req.body || {};
     const categoria = comoTexto(cuerpo.categoria);
     const cantidad = Number(cuerpo.cantidad);
     if (![5, 10].includes(cantidad)) {
         return res.status(400).json({ error: "La cantidad de preguntas tiene que ser 5 o 10." });
     }
-    const banco = leer("preguntas");
+    const banco = await preguntasData.obtenerTodas();
     if (!categoriasParaJugar(banco).includes(categoria)) {
         return res.status(400).json({ error: "La categoría elegida no existe." });
     }
@@ -81,28 +77,25 @@ router.post("/", (req, res) => {
     }
 
     // si el usuario dejó una partida colgada (cerró la pestaña), queda como abandonada
-    const partidas = leer("partidas").map((p) => {
-        if (p.usuario === req.usuario.usuario && p.estado === "en curso") {
-            return finalizarPartida(p, "abandonada");
+    for (const p of await partidasData.obtenerDelUsuario(req.usuario.usuario)) {
+        if (p.estado === "en curso") {
+            await partidasData.actualizar(p.id, finalizarPartida(p, "abandonada"));
         }
-        return p;
-    });
-    const nueva = crearPartida(req.usuario.usuario, categoria, preguntas);
-    partidas.push(nueva);
-    guardar("partidas", partidas);
+    }
+    const nueva = await partidasData.crear(crearPartida(req.usuario.usuario, categoria, preguntas));
     res.status(201).json(paraElCliente(nueva));
 });
 
-router.get("/:id", (req, res) => {
-    const partida = buscarPartida(req, res);
+router.get("/:id", async (req, res) => {
+    const partida = await buscarPartida(req, res);
     if (partida !== null) {
         res.json(paraElCliente(partida));
     }
 });
 
 // opcion: índice de la opción elegida, o null si se terminó el tiempo
-router.post("/:id/respuestas", (req, res) => {
-    const partida = buscarPartida(req, res);
+router.post("/:id/respuestas", async (req, res) => {
+    const partida = await buscarPartida(req, res);
     if (partida === null) {
         return;
     }
@@ -126,7 +119,7 @@ router.post("/:id/respuestas", (req, res) => {
     } else {
         actualizada = finalizarPartida(actualizada, "completada");
     }
-    guardarPartida(actualizada);
+    await partidasData.actualizar(actualizada.id, actualizada);
 
     res.json({
         elegida: opcion,
@@ -136,8 +129,8 @@ router.post("/:id/respuestas", (req, res) => {
 });
 
 // abandonar: PATCH /api/partidas/:id con { "estado": "abandonada" }
-router.patch("/:id", (req, res) => {
-    const partida = buscarPartida(req, res);
+router.patch("/:id", async (req, res) => {
+    const partida = await buscarPartida(req, res);
     if (partida === null) {
         return;
     }
@@ -148,7 +141,7 @@ router.patch("/:id", (req, res) => {
         return res.status(409).json({ error: "La partida ya terminó." });
     }
     const abandonada = finalizarPartida(partida, "abandonada");
-    guardarPartida(abandonada);
+    await partidasData.actualizar(abandonada.id, abandonada);
     res.json(paraElCliente(abandonada));
 });
 

@@ -1,6 +1,6 @@
 import express from "express";
 import path from "node:path";
-import { inicializarDatos } from "./datos.js";
+import { inicializarDatos } from "./data/inicializar.js";
 import authRoutes from "./routes/auth.js";
 import preguntasRoutes from "./routes/preguntas.js";
 import partidasRoutes from "./routes/partidas.js";
@@ -10,7 +10,7 @@ import usuariosRoutes from "./routes/usuarios.js";
 const PUERTO = process.env.PORT || 3000;
 const app = express();
 
-inicializarDatos();
+await inicializarDatos();
 
 app.use(express.json());
 

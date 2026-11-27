@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { leer } from "../datos.js";
+import * as partidasData from "../data/partidas.js";
+import * as usuariosData from "../data/usuarios.js";
 import { requiereSesion } from "../middlewares/sesion.js";
 import {
     partidasDelUsuario,
@@ -12,25 +13,25 @@ import {
 const router = Router();
 
 // Request -> [Partida]
-function misPartidas(req) {
-    return soloFinalizadas(partidasDelUsuario(leer("partidas"), req.usuario.usuario));
+async function misPartidas(req) {
+    return soloFinalizadas(partidasDelUsuario(await partidasData.obtenerTodas(), req.usuario.usuario));
 }
 
-router.get("/estadisticas", requiereSesion, (req, res) => {
-    res.json(estadisticasPersonales(misPartidas(req)));
+router.get("/estadisticas", requiereSesion, async (req, res) => {
+    res.json(estadisticasPersonales(await misPartidas(req)));
 });
 
-router.get("/estadisticas/:categoria", requiereSesion, (req, res) => {
+router.get("/estadisticas/:categoria", requiereSesion, async (req, res) => {
     const categoria = req.params.categoria;
-    res.json({ categoria: categoria, porcentaje: porcentajePorCategoria(misPartidas(req), categoria) });
+    res.json({ categoria: categoria, porcentaje: porcentajePorCategoria(await misPartidas(req), categoria) });
 });
 
 // GET /api/ranking -> ranking general; GET /api/ranking?categoria=Historia -> solo esa categoría
-router.get("/ranking", requiereSesion, (req, res) => {
+router.get("/ranking", requiereSesion, async (req, res) => {
     const categoria = req.query.categoria;
     // las partidas de prueba de los admins no compiten
-    const admins = leer("usuarios").filter((u) => u.rol === "admin").map((u) => u.usuario);
-    let partidas = leer("partidas").filter((p) => !admins.includes(p.usuario));
+    const admins = (await usuariosData.obtenerTodos()).filter((u) => u.rol === "admin").map((u) => u.usuario);
+    let partidas = (await partidasData.obtenerTodas()).filter((p) => !admins.includes(p.usuario));
     if (categoria) {
         partidas = partidas.filter((p) => p.categoria === categoria);
     }
