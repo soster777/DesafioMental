@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
@@ -10,12 +10,12 @@ import { colorDeCategoria } from "../components/Categoria.jsx";
 import MenuAdmin from "./MenuAdmin.jsx";
 
 export default function Menu() {
-  const { usuario } = useApp();
+  const { usuario } = useAuth();
   return usuario.rol === "admin" ? <MenuAdmin /> : <MenuJugador />;
 }
 
 function MenuJugador() {
-  const { usuario } = useApp();
+  const { usuario } = useAuth();
   const stats = useDatos("/estadisticas");
   const categorias = useDatos("/preguntas/categorias");
 

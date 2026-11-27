@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useApp } from "./context/AppContext.jsx";
+import { useAuth } from "./hooks/useAuth.jsx";
 import Barra from "./components/Barra.jsx";
 import Mensaje from "./components/Mensaje.jsx";
 import Cargando from "./components/Cargando.jsx";
@@ -18,7 +18,7 @@ import NoEncontrada from "./pages/NoEncontrada.jsx";
 import Recortes from "./components/Recortes.jsx";
 
 export default function App() {
-  const { usuario, cargandoSesion } = useApp();
+  const { usuario, cargandoSesion } = useAuth();
 
   // hasta saber si hay sesión no muestro rutas, así no rebota al login por un instante
   if (cargandoSesion) {

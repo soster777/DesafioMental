@@ -80,8 +80,8 @@ backend/
 frontend/src/
   pages/            una pantalla por cada ruta
   components/       componentes reutilizables (barra, reloj, ruleta, mensajes de carga y error)
-  context/          AppContext, con la sesión del usuario y los mensajes
-  hooks/            useDatos, para pedir datos a la API manejando la carga y los errores
+  context/          AuthContext (sesión del usuario) y MensajeContext (avisos), cada uno con su Provider
+  hooks/            useAuth y useMensaje para leer cada contexto, y useDatos para pedir datos a la API manejando la carga y los errores
   api.js            funciones para hacer las peticiones con el token de sesión
 ```
 

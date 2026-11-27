@@ -1,9 +1,11 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import { IconoCarpa, IconoPergamino, IconoTrofeo, IconoPregunta, IconoUsuarios } from "./Iconos.jsx";
 
 export default function Barra() {
-  const { usuario, logout, mostrarMensaje } = useApp();
+  const { usuario, logout } = useAuth();
+  const { mostrarMensaje } = useMensaje();
   const navigate = useNavigate();
 
   async function salir() {

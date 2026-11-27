@@ -1,7 +1,7 @@
-import { useApp } from "../context/AppContext.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 
 export default function Mensaje() {
-  const { mensaje } = useApp();
+  const { mensaje } = useMensaje();
   if (mensaje === null) {
     return null;
   }

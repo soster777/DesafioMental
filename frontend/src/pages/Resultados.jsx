@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
@@ -11,7 +11,7 @@ import { formatearDuracion, formatearFecha, porcentajeDePartida, mensajeSegunPor
 export default function Resultados() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { mostrarMensaje } = useApp();
+  const { mostrarMensaje } = useMensaje();
   const { datos: partida, cargando, error, recargar } = useDatos("/partidas/" + id);
   const [creando, setCreando] = useState(false);
 

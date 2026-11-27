@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
@@ -11,7 +12,8 @@ import { colorDeCategoria } from "../components/Categoria.jsx";
 const CANTIDADES = [5, 10];
 
 export default function Jugar() {
-  const { usuario, mostrarMensaje } = useApp();
+  const { usuario } = useAuth();
+  const { mostrarMensaje } = useMensaje();
   const esAdmin = usuario.rol === "admin";
   const navigate = useNavigate();
   const categorias = useDatos("/preguntas/categorias");

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import Cargando from "../components/Cargando.jsx";
 import Categoria from "../components/Categoria.jsx";
 import RelojBolsillo, { estadoTiempo } from "../components/RelojBolsillo.jsx";
@@ -12,7 +12,7 @@ const ESPERA_ENTRE_PREGUNTAS = 2000;
 export default function Partida() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { mostrarMensaje } = useApp();
+  const { mostrarMensaje } = useMensaje();
 
   const [partida, setPartida] = useState(null);
   const [segundos, setSegundos] = useState(SEGUNDOS_POR_PREGUNTA);

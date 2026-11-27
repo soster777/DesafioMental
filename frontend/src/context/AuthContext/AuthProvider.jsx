@@ -1,13 +1,11 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { api, obtenerToken, guardarToken, borrarToken } from "../api.js";
+import { createContext, useEffect, useState } from "react";
+import { api, obtenerToken, guardarToken, borrarToken } from "../../api.js";
 
-const AppContext = createContext(null);
+const AuthContext = createContext(null);
 
-export function AppProvider({ children }) {
+export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
   const [cargandoSesion, setCargandoSesion] = useState(true);
-  const [mensaje, setMensaje] = useState(null);
-  const temporizadorMensaje = useRef(null);
 
   // al abrir la app, si hay un token guardado le pregunto al backend de quién es
   useEffect(() => {
@@ -42,19 +40,11 @@ export function AppProvider({ children }) {
     setUsuario(null);
   }
 
-  const mostrarMensaje = useCallback((texto, tipo = "info") => {
-    setMensaje({ texto: texto, tipo: tipo });
-    clearTimeout(temporizadorMensaje.current);
-    temporizadorMensaje.current = setTimeout(() => setMensaje(null), 3500);
-  }, []);
-
   return (
-    <AppContext.Provider value={{ usuario, cargandoSesion, login, logout, mensaje, mostrarMensaje }}>
+    <AuthContext.Provider value={{ usuario, cargandoSesion, login, logout }}>
       {children}
-    </AppContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
-export function useApp() {
-  return useContext(AppContext);
-}
+export default AuthContext;

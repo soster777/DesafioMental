@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import { IconoCarpa } from "../components/Iconos.jsx";
 
 export default function MenuAdmin() {
-  const { usuario } = useApp();
+  const { usuario } = useAuth();
   const usuarios = useDatos("/usuarios");
   const preguntas = useDatos("/preguntas");
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
@@ -10,7 +10,7 @@ import Categoria from "../components/Categoria.jsx";
 const FORM_VACIO = { categoria: "", enunciado: "", opciones: ["", "", "", ""], correcta: 0, puntos: 10 };
 
 export default function AdminPreguntas() {
-  const { mostrarMensaje } = useApp();
+  const { mostrarMensaje } = useMensaje();
   const preguntas = useDatos("/preguntas");
   const [form, setForm] = useState(FORM_VACIO);
   const [editandoId, setEditandoId] = useState(null);

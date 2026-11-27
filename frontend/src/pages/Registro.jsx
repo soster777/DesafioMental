@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import Errores from "../components/Errores.jsx";
 
 export default function Registro() {
-  const { mostrarMensaje } = useApp();
+  const { mostrarMensaje } = useMensaje();
   const navigate = useNavigate();
   const [form, setForm] = useState({ usuario: "", email: "", clave: "", confirmacion: "" });
   const [errores, setErrores] = useState([]);

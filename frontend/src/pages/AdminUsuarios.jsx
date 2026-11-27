@@ -1,11 +1,13 @@
 import { api } from "../api.js";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { useMensaje } from "../hooks/useMensaje.jsx";
 import { useDatos } from "../hooks/useDatos.js";
 import Cargando from "../components/Cargando.jsx";
 import ErrorCarga from "../components/ErrorCarga.jsx";
 
 export default function AdminUsuarios() {
-  const { usuario: yo, mostrarMensaje } = useApp();
+  const { usuario: yo } = useAuth();
+  const { mostrarMensaje } = useMensaje();
   const usuarios = useDatos("/usuarios");
   const lista = usuarios.datos || [];
 

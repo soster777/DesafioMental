@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useApp } from "../context/AppContext.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import Errores from "../components/Errores.jsx";
 import Boleto from "../components/Boleto.jsx";
 
 export default function Login() {
-  const { login } = useApp();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState("");
   const [clave, setClave] = useState("");
