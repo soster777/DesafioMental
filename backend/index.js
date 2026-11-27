@@ -39,6 +39,14 @@ app.use((err, req, res, next) => {
     if (err.type === "entity.parse.failed") {
         return res.status(400).json({ error: "El cuerpo de la petición no es un JSON válido." });
     }
+    // los errores que arman los services traen su código HTTP
+    if (err.status) {
+        const cuerpo = { error: err.message };
+        if (err.errores) {
+            cuerpo.errores = err.errores;
+        }
+        return res.status(err.status).json(cuerpo);
+    }
     console.error(err);
     res.status(500).json({ error: "Error interno del servidor." });
 });

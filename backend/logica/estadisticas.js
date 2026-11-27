@@ -1,10 +1,5 @@
 import { MEZCLADAS } from "./partida.js";
 
-// [Partida] -> String -> [Partida]
-export function partidasDelUsuario(partidas, usuario) {
-    return partidas.filter((partida) => partida.usuario === usuario);
-}
-
 // [Partida] -> [Partida]
 export function soloFinalizadas(partidas) {
     return partidas.filter((partida) => partida.estado !== "en curso");
