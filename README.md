@@ -71,19 +71,28 @@ Después se abre http://localhost:5173 en el navegador. Vite redirige las petici
 
 ```
 backend/
-  index.js          inicia el servidor y conecta las rutas
-  data/             repository: lee y guarda los JSON, un archivo por entidad (usuarios, preguntas, partidas, sesiones)
-  services/         lógica del negocio: validan, aplican las reglas (también la sesión y el rol) y avisan los errores con su código HTTP
-  controllers/      reciben el pedido, llaman al service y arman la respuesta HTTP
+  index.js          inicia el servidor, conecta las rutas y tiene el manejador de errores
   routes/           endpoints de la API: cada ruta apunta a la función de su controller
-  logica/           reglas del juego, validaciones, estadísticas y ranking
+  controllers/      reciben el pedido, llaman al service y arman la respuesta HTTP
+  services/         lógica del negocio: validan, aplican las reglas (también la sesión y el rol) y avisan los errores con su código HTTP
+  data/             repository: lee y guarda los JSON, un archivo por entidad (usuarios, preguntas, partidas, sesiones)
+  logica/           funciones puras que usan los services: reglas del juego, validaciones, estadísticas y ranking
 frontend/src/
+  App.jsx           BrowserRouter, providers y el arreglo de rutas con el acceso que necesita cada una
   pages/            una pantalla por cada ruta
-  components/       componentes reutilizables (barra, reloj, ruleta, mensajes de carga y error)
+  components/       componentes reutilizables (barra, reloj, ruleta, mensajes de carga y error, RutaPrivada)
   context/          AuthContext (sesión del usuario) y MensajeContext (avisos), cada uno con su Provider
   hooks/            useAuth y useMensaje para leer cada contexto, y useDatos para pedir datos a la API manejando la carga y los errores
   api.js            funciones para hacer las peticiones con el token de sesión
 ```
+
+Un pedido al backend pasa por las capas en este orden:
+
+```
+route -> controller -> service -> data (repository) -> archivo JSON
+```
+
+Si algo está mal (datos inválidos, sin sesión, sin permiso, recurso inexistente), el service lanza un error con su código HTTP, el controller lo pasa con `next(error)` y el manejador de errores de `index.js` responde `{ "error": "mensaje" }` con ese código.
 
 ## Roles
 
